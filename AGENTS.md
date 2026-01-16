@@ -16,9 +16,9 @@ mcpdf is developed using a **task-by-task approval workflow**. Agents work on on
                               ▼
 ┌─────────────────────────────────────────────────────────────┐
 │  1. READ CONTEXT FILES                                       │
+│     - AGENTS.md (this file - workflow guide)                 │
 │     - context/PRD.md (requirements)                          │
 │     - context/PROGRESS.md (current status)                   │
-│     - context/AGENTS.md (this file)                          │
 │     - context/resources/* (technical references)             │
 └─────────────────────────────────────────────────────────────┘
                               │
@@ -186,9 +186,9 @@ This creates clear traceability between:
 
 | File | Purpose | When to Read |
 |------|---------|--------------|
+| `AGENTS.md` | This workflow guide | Start of session |
 | `context/PRD.md` | Full product requirements | Start of session, when clarification needed |
 | `context/PROGRESS.md` | Task status and history | Start of session, after each task |
-| `context/AGENTS.md` | This workflow guide | Start of session |
 | `context/resources/` | Technical references | When implementing specific features |
 
 ## Status Icons
