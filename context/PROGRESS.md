@@ -8,12 +8,12 @@
 
 | Phase | Status | Progress |
 |-------|--------|----------|
-| Phase 1: Foundation | 🔄 In Progress | 2/5 |
+| Phase 1: Foundation | 🔄 In Progress | 3/5 |
 | Phase 2: PDF Engine | ⏳ Pending | 0/5 |
 | Phase 3: MCP Tools | ⏳ Pending | 0/7 |
 | Phase 4: Polish & Release | ⏳ Pending | 0/5 |
 
-**Total Progress:** 2/22 tasks completed
+**Total Progress:** 3/22 tasks completed
 
 ---
 
@@ -76,16 +76,21 @@
   - All quality checks pass: `pnpm run check` ✅
 
 ### Task 1.3: Tool Registration Structure
-- **Status:** ⏳ Pending
-- **Plan:** —
+- **Status:** ✅ Complete
+- **Plan:** [`.cursor/plans/task_1.3_tool_structure_fa712bd2.plan.md`](.cursor/plans/task_1.3_tool_structure_fa712bd2.plan.md)
 - **Description:** Create tool registration pattern with placeholder implementations
 - **Deliverables:**
-  - [ ] Create `src/tools/` directory structure
-  - [ ] Implement tool registration pattern
-  - [ ] Add placeholder for all 7 tools
-  - [ ] Define input schemas with Zod
+  - [x] Create `src/tools/` directory structure
+  - [x] Implement tool registration pattern
+  - [x] Add placeholder for all 7 tools
+  - [x] Define input schemas with Zod
 - **Dependencies:** Task 1.2
 - **Notes:**
+  - Refactored from inline tool registrations to modular structure
+  - Migrated from deprecated `server.tool()` to `server.registerTool()` API
+  - Created 7 individual tool files in `src/tools/` directory
+  - All tools use correct `registerTool` API with object-based configuration
+  - All quality checks pass: `pnpm run check` ✅
 
 ### Task 1.4: Test Infrastructure
 - **Status:** ⏳ Pending
@@ -354,6 +359,7 @@
 | 2026-01-16 | Initial | Created PROGRESS.md with all planned tasks |
 | 2026-01-16 | Task 1.1 | Completed project scaffolding. Initialized with pnpm, TypeScript 5.9.3, vitest 4.0.16, tsdown 0.18.4, ESLint 9.39.2. All quality checks pass. |
 | 2026-01-16 | Task 1.2 | Completed MCP server setup. Installed @modelcontextprotocol/sdk v1.25.2, implemented server with stdio transport, registered all 7 placeholder tools with Zod schemas. Added globals package for ESLint Node.js support. |
+| 2026-01-16 | Task 1.3 | Completed tool registration structure. Refactored inline tool registrations into modular src/tools/ directory with 7 individual tool files. Migrated from deprecated server.tool() to server.registerTool() API. All quality checks pass. |
 
 ---
 
