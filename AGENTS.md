@@ -113,6 +113,7 @@ When completing a task:
 ```markdown
 ### Task X.X: Task Name
 - **Status:** ✅ Complete  <!-- Update this -->
+- **Plan:** [`.cursor/plans/task_x.x_name.plan.md`](.cursor/plans/task_x.x_name.plan.md)  <!-- Link your plan -->
 - **Deliverables:**
   - [x] First deliverable   <!-- Check these off -->
   - [x] Second deliverable
@@ -163,15 +164,34 @@ pnpm test && pnpm run lint && pnpm run build
 - Then proceed with completion
 
 ### 7. Link Cursor Plans to PROGRESS.md Tasks
-When using Cursor Plan mode:
-1. **Name plans with task reference** - Include task ID in plan title
-   - Good: "Task 1.2: MCP Server Setup - Initialize server"
-   - Bad: "Set up the server"
+
+⚠️ **REQUIRED: Plan names MUST start with the task ID**
+
+When creating a Cursor Plan, you MUST follow this naming convention:
+
+```
+Task X.Y: [Task Name] - [Specific Action]
+```
+
+**Examples:**
+| ✅ Good | ❌ Bad |
+|---------|--------|
+| `Task 1.2: MCP Server Setup - Initialize server` | `MCP Server Setup` |
+| `Task 2.3: Text Extraction - Add pdfjs-dist` | `Implement text extraction` |
+| `Task 3.4: fill_field Tool - Add elicitation` | `Add elicitation feature` |
+
+**Why this matters:**
+- Future agents can find plans by searching for the task ID
+- Creates clear traceability between tasks and implementation
+- Prevents duplicate work across sessions
+
+**Full requirements:**
+1. **Name plans with task ID prefix** - ALWAYS start with `Task X.Y:`
 2. **Reference task in plan description** - Mention which PROGRESS.md task this implements
 3. **Check plans in new sessions** - Review existing plans to understand completed work
 4. **Document plan outcomes** - Note in PROGRESS.md if a plan was used
 
-**Example plan naming:**
+**Example plan:**
 ```
 Plan Title: Task 2.3: Text Extraction - Implement pdfjs-dist integration
 Description: Implements Task 2.3 from PROGRESS.md - adding text extraction using pdfjs-dist

@@ -8,12 +8,12 @@
 
 | Phase | Status | Progress |
 |-------|--------|----------|
-| Phase 1: Foundation | 🔄 In Progress | 1/5 |
+| Phase 1: Foundation | 🔄 In Progress | 2/5 |
 | Phase 2: PDF Engine | ⏳ Pending | 0/5 |
 | Phase 3: MCP Tools | ⏳ Pending | 0/7 |
 | Phase 4: Polish & Release | ⏳ Pending | 0/5 |
 
-**Total Progress:** 1/22 tasks completed
+**Total Progress:** 2/22 tasks completed
 
 ---
 
@@ -21,6 +21,7 @@
 
 ### Task 1.1: Project Scaffolding
 - **Status:** ✅ Complete
+- **Plan:** [`.cursor/plans/task_1.1_project_scaffolding_ca708468.plan.md`](.cursor/plans/task_1.1_project_scaffolding_ca708468.plan.md)
 - **Description:** Initialize the project with TypeScript, pnpm, linting, and all configuration
 - **Deliverables:**
   - [x] Initialize project with `package.json` (using pnpm)
@@ -50,19 +51,33 @@
   - All quality checks pass: `pnpm run check` ✅
 
 ### Task 1.2: MCP Server Setup
-- **Status:** ⏳ Pending
+- **Status:** ✅ Complete
+- **Plan:** [`.cursor/plans/task_1.2_mcp_server_setup_a6c60a2e.plan.md`](.cursor/plans/task_1.2_mcp_server_setup_a6c60a2e.plan.md)
 - **Description:** Set up basic MCP server with stdio transport
 - **Deliverables:**
-  - [ ] Install `@modelcontextprotocol/sdk`
-  - [ ] Create basic server entry point (`src/index.ts`)
-  - [ ] Configure server with name, version, capabilities
-  - [ ] Set up stdio transport
-  - [ ] Add placeholder tool registration
+  - [x] Install `@modelcontextprotocol/sdk`
+  - [x] Create basic server entry point (`src/index.ts`)
+  - [x] Configure server with name, version, capabilities
+  - [x] Set up stdio transport
+  - [x] Add placeholder tool registration
 - **Dependencies:** Task 1.1
 - **Notes:**
+  - Installed @modelcontextprotocol/sdk v1.25.2
+  - Registered all 7 placeholder tools with Zod input schemas:
+    - `open_pdf` - Load PDF file (path: string)
+    - `list_fields` - List form fields (page?: number)
+    - `get_field_context` - Get field details (fieldName: string)
+    - `fill_field` - Fill form field (fieldName: string)
+    - `preview_pdf` - Preview in viewer (no input)
+    - `save_pdf` - Save to file (outputPath?: string)
+    - `get_page_content` - Extract page text (page: number)
+  - Added `globals` package for Node.js globals in ESLint
+  - Updated bin entry in package.json to use `.mjs` extension
+  - All quality checks pass: `pnpm run check` ✅
 
 ### Task 1.3: Tool Registration Structure
 - **Status:** ⏳ Pending
+- **Plan:** —
 - **Description:** Create tool registration pattern with placeholder implementations
 - **Deliverables:**
   - [ ] Create `src/tools/` directory structure
@@ -74,6 +89,7 @@
 
 ### Task 1.4: Test Infrastructure
 - **Status:** ⏳ Pending
+- **Plan:** —
 - **Description:** Set up testing framework and fixtures
 - **Deliverables:**
   - [ ] Configure vitest
@@ -85,6 +101,7 @@
 
 ### Task 1.5: Development Workflow
 - **Status:** ⏳ Pending
+- **Plan:** —
 - **Description:** Ensure smooth development experience
 - **Deliverables:**
   - [ ] Verify build produces working output
@@ -100,6 +117,7 @@
 
 ### Task 2.1: PDF Loading
 - **Status:** ⏳ Pending
+- **Plan:** —
 - **Description:** Implement PDF file loading with pdf-lib
 - **Deliverables:**
   - [ ] Install pdf-lib dependency
@@ -113,6 +131,7 @@
 
 ### Task 2.2: Form Field Detection
 - **Status:** ⏳ Pending
+- **Plan:** —
 - **Description:** Detect and extract AcroForm fields
 - **Deliverables:**
   - [ ] Create `src/pdf/fields.ts`
@@ -126,6 +145,7 @@
 
 ### Task 2.3: Text Extraction
 - **Status:** ⏳ Pending
+- **Plan:** —
 - **Description:** Extract text content for context using pdfjs-dist
 - **Deliverables:**
   - [ ] Install pdfjs-dist dependency
@@ -138,6 +158,7 @@
 
 ### Task 2.4: Field Filling
 - **Status:** ⏳ Pending
+- **Plan:** —
 - **Description:** Implement form field filling operations
 - **Deliverables:**
   - [ ] Create `src/pdf/writer.ts`
@@ -151,6 +172,7 @@
 
 ### Task 2.5: PDF Saving
 - **Status:** ⏳ Pending
+- **Plan:** —
 - **Description:** Save modified PDFs to new files
 - **Deliverables:**
   - [ ] Implement PDF serialization
@@ -167,6 +189,7 @@
 
 ### Task 3.1: open_pdf Tool
 - **Status:** ⏳ Pending
+- **Plan:** —
 - **Description:** Implement PDF opening tool
 - **Deliverables:**
   - [ ] Implement `src/tools/openPdf.ts`
@@ -180,6 +203,7 @@
 
 ### Task 3.2: list_fields Tool
 - **Status:** ⏳ Pending
+- **Plan:** —
 - **Description:** Implement field listing tool
 - **Deliverables:**
   - [ ] Implement `src/tools/listFields.ts`
@@ -192,6 +216,7 @@
 
 ### Task 3.3: get_field_context Tool
 - **Status:** ⏳ Pending
+- **Plan:** —
 - **Description:** Implement field context extraction
 - **Deliverables:**
   - [ ] Implement `src/tools/getFieldContext.ts`
@@ -204,6 +229,7 @@
 
 ### Task 3.4: fill_field Tool with Elicitation
 - **Status:** ⏳ Pending
+- **Plan:** —
 - **Description:** Implement field filling with MCP elicitation
 - **Deliverables:**
   - [ ] Implement `src/tools/fillField.ts`
@@ -217,6 +243,7 @@
 
 ### Task 3.5: preview_pdf Tool
 - **Status:** ⏳ Pending
+- **Plan:** —
 - **Description:** Implement PDF preview in system viewer
 - **Deliverables:**
   - [ ] Implement `src/tools/previewPdf.ts`
@@ -229,6 +256,7 @@
 
 ### Task 3.6: save_pdf Tool
 - **Status:** ⏳ Pending
+- **Plan:** —
 - **Description:** Implement PDF saving tool
 - **Deliverables:**
   - [ ] Implement `src/tools/savePdf.ts`
@@ -241,6 +269,7 @@
 
 ### Task 3.7: get_page_content Tool
 - **Status:** ⏳ Pending
+- **Plan:** —
 - **Description:** Implement page content extraction
 - **Deliverables:**
   - [ ] Implement `src/tools/getPageContent.ts`
@@ -256,6 +285,7 @@
 
 ### Task 4.1: Error Handling
 - **Status:** ⏳ Pending
+- **Plan:** —
 - **Description:** Comprehensive error handling
 - **Deliverables:**
   - [ ] Create `src/utils/errors.ts` with typed errors
@@ -267,6 +297,7 @@
 
 ### Task 4.2: Session State Management
 - **Status:** ⏳ Pending
+- **Plan:** —
 - **Description:** Implement minimal session state
 - **Deliverables:**
   - [ ] Create `src/state/session.ts`
@@ -278,6 +309,7 @@
 
 ### Task 4.3: Documentation
 - **Status:** ⏳ Pending
+- **Plan:** —
 - **Description:** Write user documentation
 - **Deliverables:**
   - [ ] Create comprehensive README.md
@@ -290,6 +322,7 @@
 
 ### Task 4.4: Package Configuration
 - **Status:** ⏳ Pending
+- **Plan:** —
 - **Description:** Prepare for npm publishing
 - **Deliverables:**
   - [ ] Configure package.json for publishing
@@ -302,6 +335,7 @@
 
 ### Task 4.5: Real-World Testing
 - **Status:** ⏳ Pending
+- **Plan:** —
 - **Description:** Test with real PDF forms
 - **Deliverables:**
   - [ ] Test with 10+ real-world PDF forms
@@ -319,6 +353,7 @@
 |------|------|-------------------|
 | 2026-01-16 | Initial | Created PROGRESS.md with all planned tasks |
 | 2026-01-16 | Task 1.1 | Completed project scaffolding. Initialized with pnpm, TypeScript 5.9.3, vitest 4.0.16, tsdown 0.18.4, ESLint 9.39.2. All quality checks pass. |
+| 2026-01-16 | Task 1.2 | Completed MCP server setup. Installed @modelcontextprotocol/sdk v1.25.2, implemented server with stdio transport, registered all 7 placeholder tools with Zod schemas. Added globals package for ESLint Node.js support. |
 
 ---
 
@@ -326,6 +361,7 @@
 
 1. **Work on one task at a time** - Complete and get approval before moving on
 2. **Update this file** when completing tasks - Check boxes, update status, add notes
-3. **Log changes** in the Change Log section with date and description
-4. **Reference Cursor Plan mode** to understand what was already done in the session
-5. **If changes were made** during implementation that differ from the original plan, document them in the task's Notes section
+3. **Update the Plan field** - Link your Cursor plan to the task (e.g., `[plan name](.cursor/plans/filename.plan.md)`)
+4. **Log changes** in the Change Log section with date and description
+5. **Reference Cursor Plan mode** to understand what was already done in the session
+6. **If changes were made** during implementation that differ from the original plan, document them in the task's Notes section
