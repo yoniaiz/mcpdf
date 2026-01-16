@@ -21,9 +21,9 @@
 
 ### Task 1.1: Project Scaffolding
 - **Status:** ✅ Complete
-- **Description:** Initialize the project with TypeScript, npm, linting, and all configuration
+- **Description:** Initialize the project with TypeScript, pnpm, linting, and all configuration
 - **Deliverables:**
-  - [x] Initialize npm project with `package.json`
+  - [x] Initialize project with `package.json` (using pnpm)
   - [x] Configure TypeScript (`tsconfig.json`)
   - [x] Configure tsdown for building (`tsdown.config.ts`)
   - [x] Configure vitest for testing (`vitest.config.ts`)
@@ -32,7 +32,7 @@
   - [x] Add `.gitignore` and basic project files
   - [x] Create `src/index.ts` placeholder entry point
   - [x] Create initial test file to verify setup
-  - [x] Add npm scripts:
+  - [x] Add scripts (in package.json):
     - `build` - Build with tsdown
     - `dev` - Watch mode for development
     - `test` - Run tests with vitest

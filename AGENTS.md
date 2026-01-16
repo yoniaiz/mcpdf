@@ -51,9 +51,9 @@ mcpdf is developed using a **task-by-task approval workflow**. Agents work on on
                               ▼
 ┌─────────────────────────────────────────────────────────────┐
 │  4.5. VERIFY QUALITY                                         │
-│     - Run tests: `npm test` (must pass)                      │
-│     - Run lint: `npm run lint` (must pass)                   │
-│     - Run build: `npm run build` (must pass)                 │
+│     - Run tests: `pnpm test` (must pass)                     │
+│     - Run lint: `pnpm run lint` (must pass)                  │
+│     - Run build: `pnpm run build` (must pass)                │
 │     - Fix any issues before proceeding                       │
 └─────────────────────────────────────────────────────────────┘
                               │
@@ -145,15 +145,15 @@ If you need to deviate from the PRD or task plan:
 
 ### 6. Quality Gates: Tests, Lint, Build Must Pass
 Before marking any task complete:
-1. **Run tests:** `npm test` - All tests must pass
-2. **Run lint:** `npm run lint` - No lint errors
-3. **Run build:** `npm run build` - Build must succeed
+1. **Run tests:** `pnpm test` - All tests must pass
+2. **Run lint:** `pnpm run lint` - No lint errors
+3. **Run build:** `pnpm run build` - Build must succeed
 4. **Fix issues** - If any check fails, fix before proceeding
 5. **Add tests** - Every new feature/tool should have tests
 
 ```bash
 # Always run before completing a task:
-npm test && npm run lint && npm run build
+pnpm test && pnpm run lint && pnpm run build
 ```
 
 **If checks fail:**
@@ -207,7 +207,7 @@ This creates clear traceability between:
 ## Task 1.1: Project Scaffolding - COMPLETE ✅
 
 ### What was done:
-- Initialized npm project with package.json
+- Initialized project with package.json (using pnpm)
 - Configured TypeScript with tsconfig.json
 - Set up tsdown for building
 - Set up vitest for testing
@@ -215,12 +215,12 @@ This creates clear traceability between:
 - Added .gitignore and basic files
 
 ### Quality checks:
-- ✅ Tests pass: `npm test` (1 test passing)
-- ✅ Lint pass: `npm run lint` (no errors)
-- ✅ Build pass: `npm run build` (compiled successfully)
+- ✅ Tests pass: `pnpm test` (1 test passing)
+- ✅ Lint pass: `pnpm run lint` (no errors)
+- ✅ Build pass: `pnpm run build` (compiled successfully)
 
 ### Cursor Plans used:
-- Plan: "Task 1.1: Project Scaffolding - Initialize npm and TypeScript"
+- Plan: "Task 1.1: Project Scaffolding - Initialize pnpm and TypeScript"
 
 ### Deviations from plan:
 - Used Node 20 (minimum) instead of Node 18 as specified, 
