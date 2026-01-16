@@ -44,6 +44,17 @@ Review `context/resources/` when implementing specific features:
 4. **State** what you'll be implementing (continuing or starting fresh)
 5. **Ask** "Should I proceed with Task X.Y?"
 
+## When Creating Plans
+
+**REQUIRED:** Name your plans with the task ID prefix:
+```
+Task X.Y: [Task Name] - [Specific Action]
+```
+
+Example: `Task 1.2: MCP Server Setup - Initialize server`
+
+This allows future agents to find related plans by task ID.
+
 ## DO NOT
 
 - ❌ Start planning without reading AGENTS.md
@@ -52,3 +63,4 @@ Review `context/resources/` when implementing specific features:
 - ❌ Redo work that's already completed in a previous plan
 - ❌ Work on tasks out of order
 - ❌ Begin implementation without announcing the task first
+- ❌ Create plans without the task ID prefix (e.g., "Task 1.2:")
