@@ -10,10 +10,10 @@
 |-------|--------|----------|
 | Phase 1: Foundation | ✅ Complete | 5/5 |
 | Phase 2: PDF Engine | ✅ Complete | 5/5 |
-| Phase 3: MCP Tools | 🔄 In Progress | 5/7 |
+| Phase 3: MCP Tools | ✅ Complete | 7/7 |
 | Phase 4: Polish & Release | ⏳ Pending | 0/5 |
 
-**Total Progress:** 15/22 tasks completed
+**Total Progress:** 16/22 tasks completed
 
 ---
 
@@ -352,16 +352,20 @@
   - 4 new tests passing, 164 total passing
 
 ### Task 3.7: get_page_content Tool
-- **Status:** ⏳ Pending
-- **Plan:** —
+- **Status:** ✅ Complete
+- **Plan:** [.cursor/plans/task_3.7_get_page_content_tool_x7s9d2k1.plan.md](.cursor/plans/task_3.7_get_page_content_tool_x7s9d2k1.plan.md)
 - **Description:** Implement page content extraction
 - **Deliverables:**
-  - [ ] Implement `src/tools/getPageContent.ts`
-  - [ ] Extract full page text
-  - [ ] Handle page number validation
-  - [ ] Write integration tests
+  - [x] Implement `src/tools/getPageContent.ts`
+  - [x] Extract full page text
+  - [x] Handle page number validation
+  - [x] Write integration tests
 - **Dependencies:** Task 3.1
 - **Notes:**
+  - Implemented `get_page_content` tool that leverages existing `extractPageText` functionality
+  - Added integration tests covering success, out-of-range pages, and no-session states
+  - Verified error handling aligns with session management (e.g., "No active PDF session")
+  - All quality checks pass: `pnpm run check` ✅ (168 tests passing)
 
 ---
 
@@ -453,6 +457,7 @@
 | 2026-01-17 | Task 3.4 | Completed fill_field tool. Implemented field filling using MCP `elicitation/create` feature to interactively request values. Added session modification tracking. Updated test client with elicitation capabilities. 4 new tests, 156 total passing. |
 | 2026-01-17 | Task 3.5 | Completed preview_pdf tool. Implemented `preview_pdf` which opens the current PDF in the system's default viewer. Handles modified state by saving to a temporary file. Added `src/utils/platform.ts` for cross-platform support. 4 new tests, 160 total passing. |
 | 2026-01-17 | Task 3.6 | Completed save_pdf tool. Implemented `save_pdf` tool allowing users to save modified PDFs. Supports custom output paths or defaults to `_filled.pdf` suffix. 4 new tests, 164 total passing. |
+| 2026-01-17 | Task 3.7 | Completed get_page_content tool. Implemented `get_page_content` using existing text extraction logic. Added integration tests for success and error cases. 4 new tests, 168 total passing. Phase 3 complete. |
 
 ---
 
