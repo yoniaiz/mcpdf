@@ -8,16 +8,28 @@ You will gather context, research patterns, and output a structured brief.
 
 ---
 
-## Step 1: Read Core Context Files
+## Step 1: Determine Active Phase
 
-Read these files in parallel:
-- `AGENTS.md` - Workflow rules and conventions
-- `context/PROGRESS.md` - Task status tracker
-- `context/PRD.md` - Product requirements
+Read `context/ACTIVE_PHASE.md` first:
+- Extract the phase name from the code block (e.g., `v2-static-forms`)
+- This determines which context files to read
 
 ---
 
-## Step 2: Identify the Next Task
+## Step 2: Read Core Context Files
+
+Read these files in parallel (using the active phase):
+- `AGENTS.md` - Workflow rules and conventions
+- `context/{phase}/PROGRESS.md` - Task status tracker
+- `context/{phase}/PRD.md` - Product requirements
+
+Example: If active phase is `v2-static-forms`:
+- Read `context/v2-static-forms/PROGRESS.md`
+- Read `context/v2-static-forms/PRD.md`
+
+---
+
+## Step 3: Identify the Next Task
 
 From PROGRESS.md:
 1. Find the **FIRST task** with status `⏳ Pending`
@@ -32,7 +44,7 @@ Extract from the task:
 
 ---
 
-## Step 3: Check for Existing Plans
+## Step 4: Check for Existing Plans
 
 Look in `.cursor/plans/` for any plans matching the task ID:
 - Pattern: `task_X.Y_*.plan.md` (e.g., `task_2.4_*.plan.md`)
@@ -41,7 +53,7 @@ Look in `.cursor/plans/` for any plans matching the task ID:
 
 ---
 
-## Step 4: Understand the Current Codebase
+## Step 5: Understand the Current Codebase
 
 Based on the task deliverables, explore the relevant parts of the codebase:
 - Read related existing code (similar patterns, modules to modify)
@@ -51,7 +63,7 @@ Based on the task deliverables, explore the relevant parts of the codebase:
 
 ---
 
-## Step 5: Research External Examples (if needed)
+## Step 6: Research External Examples (if needed)
 
 Use **octocode-mcp** tools to research patterns when the task involves:
 - MCP server patterns (tools, resources, prompts)
@@ -69,25 +81,33 @@ Research workflow:
 
 ---
 
-## Step 6: Read Technical Resources
+## Step 7: Read Technical Resources
 
-Check `context/resources/` for relevant documentation:
-- `LIBRARIES.md` - Library usage patterns
-- `MCP_EXAMPLES.md` - MCP server examples
-- `PDF_PATTERNS.md` - PDF handling patterns
+Check resources directories for relevant documentation:
+
+**Shared resources** (always check):
+- `context/resources/LIBRARIES.md` - Library usage patterns
+- `context/resources/MCP_EXAMPLES.md` - MCP server examples
+
+**Phase-specific resources** (based on active phase):
+- `context/{phase}/resources/*` - Phase-specific patterns
+
+Example for `v2-static-forms`:
+- `context/v2-static-forms/resources/STATIC_FORM_RESEARCH.md`
 
 Only read files relevant to the current task.
 
 ---
 
-## Step 7: Output the Planning Brief
+## Step 8: Output the Planning Brief
 
 Produce a structured brief in this format:
 
-```markdown
+\`\`\`markdown
 # Planning Brief: Task X.Y - [Task Name]
 
-## Task Overview
+## Context
+- **Active Phase:** {phase}
 - **Task ID:** Task X.Y
 - **Task Name:** [name]
 - **Dependencies:** [list completed dependencies]
@@ -120,27 +140,29 @@ Produce a structured brief in this format:
 [High-level approach based on research and codebase analysis]
 
 ## Files Likely to Change
-- `path/to/file1.ts` - [what changes]
-- `path/to/file2.ts` - [what changes]
+- \`path/to/file1.ts\` - [what changes]
+- \`path/to/file2.ts\` - [what changes]
 
 ## Open Questions (if any)
 - [Question 1]
 - [Question 2]
-```
+\`\`\`
 
 ---
 
 ## Final Output
 
 End with:
-```
+\`\`\`
 ---
 📋 **Planning Brief Complete for Task X.Y: [Task Name]**
 
+Phase: {active_phase}
+
 You can now use **Cursor Plan Mode** to create the implementation plan.
 
-Suggested plan title: `Task X.Y: [Task Name] - [Main Action]`
-```
+Suggested plan title: \`Task X.Y: [Task Name] - [Main Action]\`
+\`\`\`
 
 ---
 
@@ -150,3 +172,4 @@ Suggested plan title: `Task X.Y: [Task Name] - [Main Action]`
 - ❌ Skip the research phase
 - ❌ Proceed if dependencies are incomplete
 - ❌ Provide vague or incomplete briefs
+- ❌ Skip reading ACTIVE_PHASE.md first
