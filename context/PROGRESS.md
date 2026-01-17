@@ -10,10 +10,10 @@
 |-------|--------|----------|
 | Phase 1: Foundation | ✅ Complete | 5/5 |
 | Phase 2: PDF Engine | ✅ Complete | 5/5 |
-| Phase 3: MCP Tools | 🔄 In Progress | 1/7 |
+| Phase 3: MCP Tools | 🔄 In Progress | 2/7 |
 | Phase 4: Polish & Release | ⏳ Pending | 0/5 |
 
-**Total Progress:** 11/22 tasks completed
+**Total Progress:** 12/22 tasks completed
 
 ---
 
@@ -265,17 +265,22 @@
   - All quality checks pass: `pnpm run check` ✅
 
 ### Task 3.2: list_fields Tool
-- **Status:** ⏳ Pending
-- **Plan:** —
+- **Status:** ✅ Complete
+- **Plan:** [.cursor/plans/task_3.2_list_fields_tool_9a8b7c6d.plan.md](.cursor/plans/task_3.2_list_fields_tool_9a8b7c6d.plan.md)
 - **Description:** Implement field listing tool
 - **Deliverables:**
-  - [ ] Implement `src/tools/listFields.ts`
-  - [ ] Return all fields with metadata
-  - [ ] Support optional page filter
-  - [ ] Format output for readability
-  - [ ] Write integration tests
+  - [x] Implement `src/tools/listFields.ts`
+  - [x] Return all fields with metadata
+  - [x] Support optional page filter
+  - [x] Format output for readability
+  - [x] Write integration tests
 - **Dependencies:** Task 3.1
 - **Notes:**
+  - Implemented `list_fields` tool with optional `page` argument
+  - Validates session existence and page range
+  - Returns fields as JSON string for easy LLM parsing
+  - 5 integration tests covering all scenarios
+  - All quality checks pass: `pnpm run check` ✅
 
 ### Task 3.3: get_field_context Tool
 - **Status:** ⏳ Pending
@@ -427,6 +432,7 @@
 | 2026-01-17 | Task 2.4 | Completed field filling. Created `src/pdf/writer.ts` with `fillField()` function supporting text, checkbox, radio, and dropdown fields. Added `PdfReadOnlyFieldError`, `PdfInvalidFieldValueError` error classes and `FilledField` result type. Validates dropdown/radio values against options. 33 new tests, 123 total passing. |
 | 2026-01-17 | Task 2.5 | Completed PDF saving. Added `savePdf()` function to `writer.ts` with default `_filled.pdf` suffix, custom output paths, auto directory creation, and protection against overwriting original file. Added `PdfSaveError` class and `SaveResult` interface. 18 new tests, 141 total passing. Phase 2 complete. |
 | 2026-01-17 | Task 3.1 | Completed open_pdf tool. Implemented `open_pdf` tool with session management (`src/state/session.ts`). Loads PDF, extracts metadata, and initializes session. 3 new tests, 144 total passing. |
+| 2026-01-17 | Task 3.2 | Completed list_fields tool. Implemented `list_fields` with page filtering and JSON output. Added integration tests. 5 new tests, 149 total passing. |
 
 ---
 
