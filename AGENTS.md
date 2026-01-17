@@ -153,7 +153,10 @@ Before marking any task complete:
 5. **Add tests** - Every new feature/tool should have tests
 
 ```bash
-# Always run before completing a task:
+# Quick check - runs lint, typecheck, and tests:
+pnpm run check
+
+# Or run individually:
 pnpm test && pnpm run lint && pnpm run build
 ```
 
@@ -162,6 +165,22 @@ pnpm test && pnpm run lint && pnpm run build
 - Fix the issues first
 - Re-run checks until all pass
 - Then proceed with completion
+
+### 6.1 Testing with MCP Inspector
+For interactive testing of the MCP server:
+
+```bash
+# Build first, then launch inspector
+pnpm run build
+pnpm run inspect
+```
+
+This opens the MCP Inspector UI at `http://localhost:6274` where you can:
+- Verify all tools are registered correctly
+- Test tool inputs and outputs interactively
+- Debug server communication issues
+
+Use this when implementing or modifying MCP tools (Phase 3).
 
 ### 7. Link Cursor Plans to PROGRESS.md Tasks
 
