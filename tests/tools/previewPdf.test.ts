@@ -77,8 +77,9 @@ describe('preview_pdf tool', () => {
     
     // Verify mocks
     expect(mocks.savePdf).toHaveBeenCalled();
-    // Get the temp path passed to savePdf
-    const tempPath = mocks.savePdf.mock.calls[0][1];
+    // Verify savePdf was called with (document, originalPath, tempPath)
+    const [, originalPath, tempPath] = mocks.savePdf.mock.calls[0];
+    expect(originalPath).toBe(pdfs.simpleForm);
     expect(tempPath).toContain(tmpdir());
     expect(tempPath).toContain('mcpdf_preview_');
     expect(tempPath).toContain('.pdf');

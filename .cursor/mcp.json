@@ -1,0 +1,8 @@
+{
+    "mcpServers": {
+      "mcpdf": {
+        "command": "node",
+        "args": ["/Users/yonatanai/Projects/mcpdf/dist/index.mjs"]
+      }
+    }
+  }

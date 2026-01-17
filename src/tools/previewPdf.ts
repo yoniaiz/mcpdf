@@ -27,7 +27,8 @@ export function registerPreviewPdfTool(server: McpServer): void {
           const fileName = `mcpdf_preview_${Date.now()}.pdf`;
           const tempPath = path.join(tempDir, fileName);
           
-          await savePdf(session.document, tempPath);
+          // Pass session.filePath as original and tempPath as the output path
+          await savePdf(session.document, session.filePath, tempPath);
           previewPath = tempPath;
           message = `Saved changes to temporary file and opened preview: ${previewPath}`;
         } else {
