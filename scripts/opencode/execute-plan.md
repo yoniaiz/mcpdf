@@ -30,12 +30,27 @@ Implement the plan step by step:
 2. Follow patterns defined in the plan
 3. Write tests as specified
 4. Keep changes focused on plan scope
+5. **After completing each step, update the plan file:**
+   - Change `[ ]` to `[x]` for completed deliverables
+   - Add any notes about deviations or decisions
 
 **During implementation:**
 - If you encounter issues not in the plan, document and work around
 - Commit to the plan's approach unless clearly wrong
 
-## Step 5: Run Quality Checks
+## Step 5: Update Plan and PROGRESS.md
+
+After completing all implementation:
+
+1. **Update the plan file:**
+   - Check off all completed deliverables: `[ ]` → `[x]`
+   - Add implementation notes at the bottom
+
+2. **Update PROGRESS.md:**
+   - Check off completed deliverables in the task section
+   - Keep status as `🔄 In Progress` (review step will mark complete)
+
+## Step 6: Run Quality Checks
 
 After implementation, run:
 ```bash
@@ -51,7 +66,7 @@ This runs: lint, typecheck, and tests.
 
 **IMPORTANT:** Quality checks MUST pass before proceeding.
 
-## Step 6: Output Result
+## Step 7: Output Result
 
 If all checks pass:
 ```

@@ -72,8 +72,13 @@ If any fail:
 
 ## Step 7: Verify Deliverables
 
-Cross-reference with PROGRESS.md task deliverables.
-All deliverables must be complete.
+1. **Check the plan file** (`.cursor/plans/task_{TASK_ID}_*.plan.md`):
+   - All deliverables should be checked: `[x]`
+   - If any are `[ ]`, either complete them or check them off if done
+
+2. **Cross-reference with PROGRESS.md** task deliverables:
+   - All deliverables must be complete
+   - Check them off if not already done
 
 ## Step 8: Check for Unintended Changes
 

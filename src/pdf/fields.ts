@@ -7,11 +7,14 @@ import {
   PDFDocument,
   PDFDropdown,
   PDFField,
+  PDFHexString,
+  PDFName,
   PDFRadioGroup,
+  PDFString,
   PDFTextField,
 } from 'pdf-lib';
 import { PdfFieldNotFoundError } from './errors.js';
-import { PdfField, PdfFieldType } from './types.js';
+import { PdfField, PdfFieldType, PdfRect } from './types.js';
 
 /**
  * Determine which page a field appears on.
@@ -39,6 +42,40 @@ function getFieldPage(document: PDFDocument, field: PDFField): number {
   }
 
   return 1;
+}
+
+/**
+ * Extract the visual rectangle of the field.
+ *
+ * @param field - The pdf-lib field instance
+ * @returns PdfRect or undefined if no visual widget found
+ */
+function extractFieldRect(field: PDFField): PdfRect | undefined {
+  const widgets = field.acroField.getWidgets();
+  if (widgets.length === 0) return undefined;
+
+  // Use the first widget's rectangle
+  const rect = widgets[0].getRectangle();
+  return {
+    x: rect.x,
+    y: rect.y,
+    width: rect.width,
+    height: rect.height,
+  };
+}
+
+/**
+ * Extract the tooltip/description (TU entry) of the field.
+ *
+ * @param field - The pdf-lib field instance
+ * @returns Tooltip text or undefined if not set
+ */
+function extractFieldTooltip(field: PDFField): string | undefined {
+  const tu = field.acroField.dict.lookup(PDFName.of('TU'));
+  if (tu instanceof PDFString || tu instanceof PDFHexString) {
+    return tu.decodeText();
+  }
+  return undefined;
 }
 
 /**
@@ -116,6 +153,8 @@ function extractFieldOptions(field: PDFField): string[] | undefined {
 function convertField(document: PDFDocument, field: PDFField): PdfField {
   const type = detectFieldType(field);
   const options = extractFieldOptions(field);
+  const rect = extractFieldRect(field);
+  const description = extractFieldTooltip(field);
 
   return {
     name: field.getName(),
@@ -125,6 +164,8 @@ function convertField(document: PDFDocument, field: PDFField): PdfField {
     readOnly: field.isReadOnly(),
     currentValue: extractFieldValue(field),
     ...(options !== undefined && { options }),
+    ...(rect !== undefined && { rect }),
+    ...(description !== undefined && { description }),
   };
 }
 

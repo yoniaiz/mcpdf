@@ -283,17 +283,22 @@
   - All quality checks pass: `pnpm run check` ✅
 
 ### Task 3.3: get_field_context Tool
-- **Status:** ⏳ Pending
-- **Plan:** —
+- **Status:** ✅ Complete
+- **Plan:** [.cursor/plans/task_3.3_get_field_context_tool_a9b8c7d6.plan.md](.cursor/plans/task_3.3_get_field_context_tool_a9b8c7d6.plan.md)
 - **Description:** Implement field context extraction
 - **Deliverables:**
-  - [ ] Implement `src/tools/getFieldContext.ts`
-  - [ ] Extract surrounding text
-  - [ ] Identify field section/label
-  - [ ] Include field constraints
-  - [ ] Write integration tests
+  - [x] Implement `src/tools/getFieldContext.ts`
+  - [x] Extract surrounding text
+  - [x] Identify field section/label
+  - [x] Include field constraints
+  - [x] Write integration tests
 - **Dependencies:** Task 3.1
 - **Notes:**
+  - Added `PdfRect` and `description` to `PdfField` type
+  - Updated field detection to extract visual coordinates and tooltips
+  - Implemented spatial analysis to find labels "Above" (vertical forms) or "Left" (horizontal forms)
+  - Relaxed spatial matching slightly (-5pt/+5pt) to account for rendering variations
+  - All quality checks pass: `pnpm run check` ✅
 
 ### Task 3.4: fill_field Tool with Elicitation
 - **Status:** ⏳ Pending
@@ -433,6 +438,7 @@
 | 2026-01-17 | Task 2.5 | Completed PDF saving. Added `savePdf()` function to `writer.ts` with default `_filled.pdf` suffix, custom output paths, auto directory creation, and protection against overwriting original file. Added `PdfSaveError` class and `SaveResult` interface. 18 new tests, 141 total passing. Phase 2 complete. |
 | 2026-01-17 | Task 3.1 | Completed open_pdf tool. Implemented `open_pdf` tool with session management (`src/state/session.ts`). Loads PDF, extracts metadata, and initializes session. 3 new tests, 144 total passing. |
 | 2026-01-17 | Task 3.2 | Completed list_fields tool. Implemented `list_fields` with page filtering and JSON output. Added integration tests. 5 new tests, 149 total passing. |
+| 2026-01-17 | Task 3.3 | Completed get_field_context tool. Implemented spatial analysis to identify field labels and context. Added `PdfRect` type and updated field detection to include coordinates and tooltips. 3 new tests, 152 total passing. |
 
 ---
 

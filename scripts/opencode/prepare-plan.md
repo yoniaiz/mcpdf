@@ -36,9 +36,9 @@ Based on deliverables, explore relevant code:
 - Understand patterns and conventions
 - Identify where new code should go
 
-## Step 5: Research (if needed)
+## Step 5: Read Technical Resources
 
-For unfamiliar patterns, check:
+For local documentation, check:
 - `context/resources/LIBRARIES.md`
 - `context/resources/MCP_EXAMPLES.md`
 - `context/resources/PDF_PATTERNS.md`
@@ -94,7 +94,7 @@ Brief description of what this task accomplishes.
 - [ ] Follows existing patterns
 ```
 
-## Step 7: Output Completion
+## Step 8: Output Completion
 
 After creating the plan file, output:
 

@@ -70,6 +70,20 @@ export interface LoadedPdf {
 }
 
 /**
+ * Rectangle coordinates for a visual element in PDF
+ */
+export interface PdfRect {
+  /** X coordinate (left) */
+  x: number;
+  /** Y coordinate (bottom) */
+  y: number;
+  /** Width in points */
+  width: number;
+  /** Height in points */
+  height: number;
+}
+
+/**
  * Metadata for a single form field in a PDF
  */
 export interface PdfField {
@@ -87,6 +101,10 @@ export interface PdfField {
   currentValue: string | boolean | null;
   /** Available options for dropdown and radio fields */
   options?: string[];
+  /** Visual position of the field widget on the page (if available) */
+  rect?: PdfRect;
+  /** Field description or tooltip (if available) */
+  description?: string;
 }
 
 /**
