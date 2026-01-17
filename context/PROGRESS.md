@@ -10,10 +10,10 @@
 |-------|--------|----------|
 | Phase 1: Foundation | ✅ Complete | 5/5 |
 | Phase 2: PDF Engine | ✅ Complete | 5/5 |
-| Phase 3: MCP Tools | 🔄 In Progress | 2/7 |
+| Phase 3: MCP Tools | 🔄 In Progress | 5/7 |
 | Phase 4: Polish & Release | ⏳ Pending | 0/5 |
 
-**Total Progress:** 12/22 tasks completed
+**Total Progress:** 15/22 tasks completed
 
 ---
 
@@ -319,17 +319,21 @@
   - All quality checks pass: `pnpm run check` ✅ (156 tests passing)
 
 ### Task 3.5: preview_pdf Tool
-- **Status:** ⏳ Pending
-- **Plan:** —
+- **Status:** ✅ Complete
+- **Plan:** [.cursor/plans/task_3.5_preview_pdf_tool_k92s8d7f.plan.md](.cursor/plans/task_3.5_preview_pdf_tool_k92s8d7f.plan.md)
 - **Description:** Implement PDF preview in system viewer
 - **Deliverables:**
-  - [ ] Implement `src/tools/previewPdf.ts`
-  - [ ] Create `src/utils/platform.ts` for OS detection
-  - [ ] Save temp file if modified
-  - [ ] Open with platform command (open/start/xdg-open)
-  - [ ] Write integration tests
+  - [x] Implement `src/tools/previewPdf.ts`
+  - [x] Create `src/utils/platform.ts` for OS detection
+  - [x] Save temp file if modified
+  - [x] Open with platform command (open/start/xdg-open)
+  - [x] Write integration tests
 - **Dependencies:** Task 3.1
 - **Notes:**
+  - Implemented `openFile` utility supporting macOS (open), Windows (start), and Linux (xdg-open)
+  - Tool automatically saves modified PDFs to temp directory before previewing
+  - Added `PdfPreviewError` for proper error handling
+  - 4 new tests passing, 160 total
 
 ### Task 3.6: save_pdf Tool
 - **Status:** ⏳ Pending
@@ -444,6 +448,7 @@
 | 2026-01-17 | Task 3.2 | Completed list_fields tool. Implemented `list_fields` with page filtering and JSON output. Added integration tests. 5 new tests, 149 total passing. |
 | 2026-01-17 | Task 3.3 | Completed get_field_context tool. Implemented spatial analysis to identify field labels and context. Added `PdfRect` type and updated field detection to include coordinates and tooltips. 3 new tests, 152 total passing. |
 | 2026-01-17 | Task 3.4 | Completed fill_field tool. Implemented field filling using MCP `elicitation/create` feature to interactively request values. Added session modification tracking. Updated test client with elicitation capabilities. 4 new tests, 156 total passing. |
+| 2026-01-17 | Task 3.5 | Completed preview_pdf tool. Implemented `preview_pdf` which opens the current PDF in the system's default viewer. Handles modified state by saving to a temporary file. Added `src/utils/platform.ts` for cross-platform support. 4 new tests, 160 total passing. |
 
 ---
 

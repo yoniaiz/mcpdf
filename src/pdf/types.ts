@@ -34,6 +34,8 @@ export enum PdfErrorCode {
   InvalidFieldValue = 'INVALID_FIELD_VALUE',
   /** Failed to save PDF to file */
   SaveFailed = 'SAVE_FAILED',
+  /** Failed to preview PDF */
+  PreviewFailed = 'PREVIEW_FAILED',
 }
 
 /**

@@ -138,3 +138,14 @@ export class PdfSaveError extends PdfError {
     super(message);
   }
 }
+
+/**
+ * Error thrown when previewing a PDF fails
+ */
+export class PdfPreviewError extends PdfError {
+  readonly code = PdfErrorCode.PreviewFailed;
+
+  constructor(reason: string) {
+    super(`Failed to preview PDF: ${reason}`);
+  }
+}
