@@ -25,9 +25,12 @@ export default [
     }
   },
   {
-    files: ['**/*.ts'],
+    files: ['tests/**/*.ts'],
     languageOptions: {
-      parser: tsparser
+      parser: tsparser,
+      globals: {
+        ...globals.node
+      }
     },
     plugins: {
       '@typescript-eslint': tseslint

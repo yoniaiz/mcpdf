@@ -8,12 +8,12 @@
 
 | Phase | Status | Progress |
 |-------|--------|----------|
-| Phase 1: Foundation | 🔄 In Progress | 3/5 |
+| Phase 1: Foundation | 🔄 In Progress | 4/5 |
 | Phase 2: PDF Engine | ⏳ Pending | 0/5 |
 | Phase 3: MCP Tools | ⏳ Pending | 0/7 |
 | Phase 4: Polish & Release | ⏳ Pending | 0/5 |
 
-**Total Progress:** 3/22 tasks completed
+**Total Progress:** 4/22 tasks completed
 
 ---
 
@@ -93,16 +93,26 @@
   - All quality checks pass: `pnpm run check` ✅
 
 ### Task 1.4: Test Infrastructure
-- **Status:** ⏳ Pending
-- **Plan:** —
+- **Status:** ✅ Complete
+- **Plan:** [`.cursor/plans/task_1.4_test_infrastructure_8c1b999c.plan.md`](.cursor/plans/task_1.4_test_infrastructure_8c1b999c.plan.md)
 - **Description:** Set up testing framework and fixtures
 - **Deliverables:**
-  - [ ] Configure vitest
-  - [ ] Create test directory structure
-  - [ ] Add sample PDF fixtures for testing
-  - [ ] Write first test (server initialization)
+  - [x] Configure vitest
+  - [x] Create test directory structure
+  - [x] Add sample PDF fixtures for testing
+  - [x] Write first test (server initialization)
 - **Dependencies:** Task 1.1
 - **Notes:**
+  - Created Vitest fixtures using `test.extend()` pattern (inspired by textlint and bytedance MCP tests)
+  - Fixtures provide: `server` (MCP server), `client` (connected MCP client via InMemoryTransport), `pdfs` (test PDF paths)
+  - Refactored `src/index.ts` into `src/server.ts` with `createServer()` factory for testability
+  - Created PDF fixture generator using pdf-lib (`tests/pdfs/generator.ts`)
+  - Generated 3 test PDFs: simple-form.pdf (4 fields), multi-page.pdf (3 pages, 6 fields), empty.pdf (no fields)
+  - Added `generate:fixtures` npm script
+  - Enhanced vitest.config.ts with v8 coverage provider
+  - 22 tests passing (server initialization, tool registration, schema validation, fixture validation)
+  - Installed pdf-lib (needed for Phase 2 anyway), tsx, @vitest/coverage-v8
+  - All quality checks pass: `pnpm run check` ✅
 
 ### Task 1.5: Development Workflow
 - **Status:** ⏳ Pending
@@ -360,6 +370,8 @@
 | 2026-01-16 | Task 1.1 | Completed project scaffolding. Initialized with pnpm, TypeScript 5.9.3, vitest 4.0.16, tsdown 0.18.4, ESLint 9.39.2. All quality checks pass. |
 | 2026-01-16 | Task 1.2 | Completed MCP server setup. Installed @modelcontextprotocol/sdk v1.25.2, implemented server with stdio transport, registered all 7 placeholder tools with Zod schemas. Added globals package for ESLint Node.js support. |
 | 2026-01-16 | Task 1.3 | Completed tool registration structure. Refactored inline tool registrations into modular src/tools/ directory with 7 individual tool files. Migrated from deprecated server.tool() to server.registerTool() API. All quality checks pass. |
+| 2026-01-16 | Task 1.4 | Completed test infrastructure. Created Vitest fixtures with test.extend() for MCP server/client lifecycle via InMemoryTransport. Added PDF fixture generator (pdf-lib), created test PDFs. Refactored src/index.ts to src/server.ts factory. 22 tests passing. |
+| 2026-01-17 | Task 1.4 | Removed duplicate tests from server.test.ts (VERSION/SERVER_NAME already tested in setup.test.ts). Now 20 tests passing. |
 
 ---
 

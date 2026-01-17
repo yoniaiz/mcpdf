@@ -1,35 +1,22 @@
 #!/usr/bin/env node
 /**
  * mcpdf - MCP server for intelligently reading and filling PDF forms
+ *
+ * CLI entry point that starts the MCP server with stdio transport.
  */
 
-import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
-import { registerTools } from './tools/index.js';
+import { createServer, VERSION, SERVER_NAME } from './server.js';
 
-export const VERSION = '0.1.0';
-
-// Create the MCP server instance
-const server = new McpServer(
-  {
-    name: 'mcpdf',
-    version: VERSION,
-  },
-  {
-    capabilities: {
-      tools: {},
-    },
-  }
-);
-
-// Register all tools
-registerTools(server);
+// Re-export for backwards compatibility
+export { VERSION, SERVER_NAME, createServer };
 
 // =============================================================================
 // Server Startup
 // =============================================================================
 
 async function main(): Promise<void> {
+  const server = createServer();
   const transport = new StdioServerTransport();
   await server.connect(transport);
 }
