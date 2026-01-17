@@ -35,6 +35,9 @@ yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
 
+# OpenCode
+.opencode/
+
 # Lock files (optional - some teams prefer to commit these)
 # pnpm-lock.yaml
 # package-lock.json

@@ -1,0 +1,32 @@
+{
+  "data": {
+    "directory": ".opencode"
+  },
+  "providers": {
+    "copilot": {
+      "disabled": false
+    }
+  },
+  "agents": {
+    "coder": {
+      "model": "github-copilot/claude-opus-4.5",
+      "maxTokens": 16000
+    },
+    "task": {
+      "model": "github-copilot/claude-opus-4.5",
+      "maxTokens": 16000
+    },
+    "title": {
+      "model": "github-copilot/claude-opus-4.5",
+      "maxTokens": 80
+    }
+  },
+  "autoCompact": true,
+  "lsp": {
+    "typescript": {
+      "disabled": false,
+      "command": "typescript-language-server",
+      "args": ["--stdio"]
+    }
+  }
+}
