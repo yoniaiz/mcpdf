@@ -158,3 +158,44 @@ export interface SaveResult {
   /** Number of bytes written to the file */
   bytesWritten: number;
 }
+
+/**
+ * Supported standard fonts for text overlay
+ */
+export type StandardFontName = 'Helvetica' | 'TimesRoman' | 'Courier';
+
+/**
+ * Options for drawing text on a PDF page
+ */
+export interface TextOverlayOptions {
+  /** Text content to draw */
+  text: string;
+  /** X coordinate (points from left edge) */
+  x: number;
+  /** Y coordinate (points from bottom edge) */
+  y: number;
+  /** Page number (1-indexed) */
+  page: number;
+  /** Font size in points (default: 12) */
+  fontSize?: number;
+  /** Font name (default: 'Helvetica') */
+  fontName?: StandardFontName;
+}
+
+/**
+ * Result of drawing text on a page
+ */
+export interface TextOverlayResult {
+  /** Text that was drawn */
+  text: string;
+  /** X coordinate where text was placed */
+  x: number;
+  /** Y coordinate where text was placed */
+  y: number;
+  /** Page number */
+  page: number;
+  /** Font size used */
+  fontSize: number;
+  /** Font name used */
+  fontName: StandardFontName;
+}

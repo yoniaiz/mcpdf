@@ -12,7 +12,10 @@ export {
   type PageText,
   type PdfField,
   type SaveResult,
+  type StandardFontName,
   type TextItem,
+  type TextOverlayOptions,
+  type TextOverlayResult,
 } from './types.js';
 
 // Errors
@@ -24,6 +27,7 @@ export {
   PdfInvalidFieldValueError,
   PdfInvalidPageError,
   PdfNotAPdfError,
+  PdfOutOfBoundsError,
   PdfProtectedError,
   PdfReadOnlyFieldError,
   PdfSaveError,
@@ -45,3 +49,6 @@ export {
 
 // Writer
 export { fillField, savePdf } from './writer.js';
+
+// Overlay (text drawing)
+export { drawTextOnPage } from './overlay.js';

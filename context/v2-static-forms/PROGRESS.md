@@ -8,27 +8,27 @@
 
 | Phase | Status | Progress |
 |-------|--------|----------|
-| Phase 1: Core Tools | ⏳ Pending | 0/4 |
+| Phase 1: Core Tools | 🔄 In Progress | 1/4 |
 | Phase 2: Integration & Polish | ⏳ Pending | 0/3 |
 
-**Total Progress:** 0/7 tasks completed
+**Total Progress:** 1/7 tasks completed
 
 ---
 
 ## Phase 1: Core Tools
 
 ### Task 1.1: Text Overlay Foundation
-- **Status:** ⏳ Pending
-- **Plan:** —
+- **Status:** ✅ Complete
+- **Plan:** [`.cursor/plans/text_overlay_foundation_021aaf5d.plan.md`](.cursor/plans/text_overlay_foundation_021aaf5d.plan.md)
 - **Description:** Create the PDF text overlay functionality using pdf-lib
 - **Deliverables:**
-  - [ ] Create `src/pdf/overlay.ts`
-  - [ ] Implement `drawTextOnPage()` function with pdf-lib
-  - [ ] Support standard fonts (Helvetica, TimesRoman, Courier)
-  - [ ] Handle page bounds validation
-  - [ ] Write unit tests in `tests/pdf/overlay.test.ts`
+  - [x] Create `src/pdf/overlay.ts`
+  - [x] Implement `drawTextOnPage()` function with pdf-lib
+  - [x] Support standard fonts (Helvetica, TimesRoman, Courier)
+  - [x] Handle page bounds validation
+  - [x] Write unit tests in `tests/pdf/overlay.test.ts`
 - **Dependencies:** None (builds on existing pdf-lib setup)
-- **Notes:**
+- **Notes:** Added `StandardFontName`, `TextOverlayOptions`, `TextOverlayResult` types. Added `PdfOutOfBoundsError` for coordinate validation. 27 unit tests added.
 
 ### Task 1.2: get_text_with_positions Tool
 - **Status:** ⏳ Pending
@@ -119,6 +119,7 @@
 
 | Date | Task | Change Description |
 |------|------|-------------------|
+| 2026-01-17 | Task 1.1 | Completed text overlay foundation: `drawTextOnPage()`, font support, bounds validation, 27 tests |
 | 2026-01-17 | Initial | Created PROGRESS.md for v2 static form support |
 
 ---

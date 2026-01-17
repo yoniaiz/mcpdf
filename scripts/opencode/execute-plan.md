@@ -2,13 +2,22 @@
 
 You are an automated agent executing a coding plan. Follow these steps precisely.
 
-## Step 1: Read Context
+## Step 1: Determine Active Phase
 
-Read these files:
+Read `context/ACTIVE_PHASE.md` first:
+- Extract the phase name from the code block (e.g., `v2-static-forms`)
+- This determines which PROGRESS.md to read and update
+
+## Step 2: Read Context
+
+Read these files (using the active phase):
 - `AGENTS.md` - Workflow rules (especially quality gates)
-- `context/PROGRESS.md` - Current task status
+- `context/{phase}/PROGRESS.md` - Current task status
 
-## Step 2: Find and Read the Plan
+Example: If active phase is `v2-static-forms`:
+- Read `context/v2-static-forms/PROGRESS.md`
+
+## Step 3: Find and Read the Plan
 
 The task is specified by TASK_ID (e.g., "3.1").
 
@@ -18,12 +27,12 @@ Read it completely. Understand:
 - Implementation steps sequence
 - Expected file changes
 
-## Step 3: Mark Task In Progress
+## Step 4: Mark Task In Progress
 
-Update PROGRESS.md:
+Update `context/{phase}/PROGRESS.md`:
 - Change task status from `⏳ Pending` to `🔄 In Progress`
 
-## Step 4: Execute the Plan
+## Step 5: Execute the Plan
 
 Implement the plan step by step:
 1. Work through each step in order
@@ -38,7 +47,7 @@ Implement the plan step by step:
 - If you encounter issues not in the plan, document and work around
 - Commit to the plan's approach unless clearly wrong
 
-## Step 5: Update Plan and PROGRESS.md
+## Step 6: Update Plan and PROGRESS.md
 
 After completing all implementation:
 
@@ -46,11 +55,11 @@ After completing all implementation:
    - Check off all completed deliverables: `[ ]` → `[x]`
    - Add implementation notes at the bottom
 
-2. **Update PROGRESS.md:**
+2. **Update `context/{phase}/PROGRESS.md`:**
    - Check off completed deliverables in the task section
    - Keep status as `🔄 In Progress` (review step will mark complete)
 
-## Step 6: Run Quality Checks
+## Step 7: Run Quality Checks
 
 After implementation, run:
 ```bash
@@ -66,11 +75,12 @@ This runs: lint, typecheck, and tests.
 
 **IMPORTANT:** Quality checks MUST pass before proceeding.
 
-## Step 7: Output Result
+## Step 8: Output Result
 
 If all checks pass:
 ```
 EXECUTION_COMPLETE: Task {TASK_ID}
+PHASE: {active_phase}
 TESTS_PASSING: {number} tests
 FILES_CHANGED: {list of files}
 ```
@@ -78,10 +88,12 @@ FILES_CHANGED: {list of files}
 If checks fail after multiple attempts:
 ```
 EXECUTION_FAILED: {reason}
+PHASE: {active_phase}
 FAILING_CHECKS: {which checks failed}
 ```
 
 ## Rules
+- DO read ACTIVE_PHASE.md first
 - DO implement all code changes from the plan
 - DO write all tests specified
 - DO run `pnpm run check` and fix issues

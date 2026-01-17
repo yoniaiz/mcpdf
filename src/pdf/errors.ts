@@ -149,3 +149,18 @@ export class PdfPreviewError extends PdfError {
     super(`Failed to preview PDF: ${reason}`);
   }
 }
+
+/**
+ * Error thrown when coordinates are outside page bounds
+ */
+export class PdfOutOfBoundsError extends PdfError {
+  readonly code = PdfErrorCode.InvalidFieldValue;
+
+  constructor(
+    public readonly coordinate: 'x' | 'y',
+    public readonly value: number,
+    public readonly max: number
+  ) {
+    super(`${coordinate.toUpperCase()} coordinate ${value} is out of bounds (0-${max})`);
+  }
+}

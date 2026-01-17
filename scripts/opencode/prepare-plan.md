@@ -2,14 +2,24 @@
 
 You are an automated agent preparing a plan for a coding task. Follow these steps precisely.
 
-## Step 1: Read Context Files
+## Step 1: Determine Active Phase
 
-Read these files to understand the project:
+Read `context/ACTIVE_PHASE.md` first:
+- Extract the phase name from the code block (e.g., `v2-static-forms`)
+- This determines which context files to read
+
+## Step 2: Read Context Files
+
+Read these files to understand the project (using the active phase):
 - `AGENTS.md` - Workflow rules
-- `context/PROGRESS.md` - Task status tracker  
-- `context/PRD.md` - Product requirements
+- `context/{phase}/PROGRESS.md` - Task status tracker  
+- `context/{phase}/PRD.md` - Product requirements
 
-## Step 2: Identify the Target Task
+Example: If active phase is `v2-static-forms`:
+- Read `context/v2-static-forms/PROGRESS.md`
+- Read `context/v2-static-forms/PRD.md`
+
+## Step 3: Identify the Target Task
 
 The task to work on is specified by the environment variable TASK_ID (e.g., "3.1").
 
@@ -24,26 +34,33 @@ Extract:
 - All deliverables
 - Any notes or constraints
 
-## Step 3: Check Existing Plans
+## Step 4: Check Existing Plans
 
 Look in `.cursor/plans/` for any plans matching `task_{TASK_ID}_*.plan.md`.
 If found, read them to understand previous work.
 
-## Step 4: Analyze Current Codebase
+## Step 5: Analyze Current Codebase
 
 Based on deliverables, explore relevant code:
 - Read similar existing implementations
 - Understand patterns and conventions
 - Identify where new code should go
 
-## Step 5: Read Technical Resources
+## Step 6: Read Technical Resources
 
 For local documentation, check:
+
+**Shared resources:**
 - `context/resources/LIBRARIES.md`
 - `context/resources/MCP_EXAMPLES.md`
-- `context/resources/PDF_PATTERNS.md`
 
-## Step 6: Create the Plan File
+**Phase-specific resources** (based on active phase):
+- `context/{phase}/resources/*`
+
+Example for `v2-static-forms`:
+- `context/v2-static-forms/resources/STATIC_FORM_RESEARCH.md`
+
+## Step 7: Create the Plan File
 
 **IMPORTANT:** You must create the plan file yourself.
 
@@ -53,6 +70,11 @@ Use this format:
 
 ```markdown
 # Plan: Task {TASK_ID} - {Task Name}
+
+## Context
+- **Active Phase:** {phase}
+- **PRD:** `context/{phase}/PRD.md`
+- **PROGRESS:** `context/{phase}/PROGRESS.md`
 
 ## Overview
 Brief description of what this task accomplishes.
@@ -100,9 +122,11 @@ After creating the plan file, output:
 
 ```
 PLAN_CREATED: .cursor/plans/task_{TASK_ID}_{name}.plan.md
+PHASE: {active_phase}
 ```
 
 ## Rules
+- DO read ACTIVE_PHASE.md first
 - DO create the plan file yourself
 - DO NOT implement any code
 - DO NOT wait for approval
