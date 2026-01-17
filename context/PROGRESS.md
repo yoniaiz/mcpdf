@@ -336,17 +336,20 @@
   - 4 new tests passing, 160 total
 
 ### Task 3.6: save_pdf Tool
-- **Status:** ⏳ Pending
-- **Plan:** —
+- **Status:** ✅ Complete
+- **Plan:** [.cursor/plans/task_3.6_save_pdf_tool_x92k3s8d.plan.md](.cursor/plans/task_3.6_save_pdf_tool_x92k3s8d.plan.md)
 - **Description:** Implement PDF saving tool
 - **Deliverables:**
-  - [ ] Implement `src/tools/savePdf.ts`
-  - [ ] Support optional custom output path
-  - [ ] Generate default filename (`_filled.pdf`)
-  - [ ] Confirm save success
-  - [ ] Write integration tests
+  - [x] Implement `src/tools/savePdf.ts`
+  - [x] Support optional custom output path
+  - [x] Generate default filename (`_filled.pdf`)
+  - [x] Confirm save success
+  - [x] Write integration tests
 - **Dependencies:** Task 3.4
 - **Notes:**
+  - Implemented `save_pdf` tool using `z.object` schema
+  - Used `session.filePath` for default filename generation
+  - 4 new tests passing, 164 total passing
 
 ### Task 3.7: get_page_content Tool
 - **Status:** ⏳ Pending
@@ -449,6 +452,7 @@
 | 2026-01-17 | Task 3.3 | Completed get_field_context tool. Implemented spatial analysis to identify field labels and context. Added `PdfRect` type and updated field detection to include coordinates and tooltips. 3 new tests, 152 total passing. |
 | 2026-01-17 | Task 3.4 | Completed fill_field tool. Implemented field filling using MCP `elicitation/create` feature to interactively request values. Added session modification tracking. Updated test client with elicitation capabilities. 4 new tests, 156 total passing. |
 | 2026-01-17 | Task 3.5 | Completed preview_pdf tool. Implemented `preview_pdf` which opens the current PDF in the system's default viewer. Handles modified state by saving to a temporary file. Added `src/utils/platform.ts` for cross-platform support. 4 new tests, 160 total passing. |
+| 2026-01-17 | Task 3.6 | Completed save_pdf tool. Implemented `save_pdf` tool allowing users to save modified PDFs. Supports custom output paths or defaults to `_filled.pdf` suffix. 4 new tests, 164 total passing. |
 
 ---
 
