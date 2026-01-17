@@ -79,7 +79,12 @@ export const test = baseTest.extend<McpdfTestFixtures>({
   client: async ({ server }, use) => {
     const client = new Client(
       { name: 'mcpdf-test-client', version: '1.0.0' },
-      { capabilities: {} }
+      {
+        capabilities: {
+          elicitation: {},
+          sampling: {},
+        },
+      }
     );
 
     // Create linked transport pair for in-memory communication

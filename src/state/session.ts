@@ -12,6 +12,8 @@ export interface PdfSession {
   originalPath: string;
   /** Total number of pages in the document */
   pageCount: number;
+  /** Whether the document has been modified */
+  isModified: boolean;
 }
 
 // Singleton state instance
@@ -35,6 +37,15 @@ export function getActiveSession(): PdfSession {
     throw new Error('No active PDF session');
   }
   return activeSession;
+}
+
+/**
+ * Mark the active session as modified
+ */
+export function markSessionModified(): void {
+  if (activeSession) {
+    activeSession.isModified = true;
+  }
 }
 
 /**

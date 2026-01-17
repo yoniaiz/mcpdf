@@ -23,6 +23,7 @@ export function registerOpenPdfTool(server: McpServer): void {
           filePath: loadedPdf.path,
           originalPath: loadedPdf.path,
           pageCount: loadedPdf.pageCount,
+          isModified: false,
         });
 
         const filename = basename(loadedPdf.path);
