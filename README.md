@@ -6,15 +6,42 @@ MCP server for intelligently reading and filling PDF forms through conversationa
 
 mcpdf provides 7 MCP tools for working with PDF forms:
 
-- **open_pdf** - Open a PDF file and get document summary including page count, form fields, and document type
-- **list_fields** - List all form fields in the currently opened PDF with their metadata (name, type, page, current value)
-- **get_field_context** - Get detailed context for a specific form field including surrounding text, section name, and constraints
-- **fill_field** - Fill a form field with user input. Uses elicitation to prompt for the value based on field type
-- **preview_pdf** - Open the current PDF in the system default PDF viewer for visual inspection
-- **save_pdf** - Save the modified PDF to a new file. Original file is never modified
-- **get_page_content** - Extract and return the text content of a specific page in the PDF
+- **open_pdf** - Open a PDF file and get document summary including page count, form fields, and document type. Validates the file and initializes the session.
+- **list_fields** - List all form fields in the currently opened PDF with their metadata (name, type, page, current value). Supports pagination.
+- **get_field_context** - Get detailed context for a specific form field including surrounding text, section name, and constraints. Useful for understanding ambiguous fields.
+- **fill_field** - Fill a form field with user input. Supports text, checkbox, radio button, and dropdown fields. Uses elicitation to prompt for clarification if needed.
+- **preview_pdf** - Open the current PDF in the system default PDF viewer for visual inspection. Supports macOS, Windows, and Linux.
+- **save_pdf** - Save the modified PDF to a new file. Automatically generates a filename (e.g., `original_filled.pdf`) if no path is provided. Original file is never modified.
+- **get_page_content** - Extract and return the text content of a specific page in the PDF.
 
-> **Note:** Currently in development. Tool implementations are placeholders and will be completed in Phase 2-3.
+## Workflow Example
+
+Here is a typical workflow for filling a PDF form:
+
+1.  **Open a PDF**: Start by opening a PDF file.
+    ```
+    open_pdf(path="/path/to/form.pdf")
+    ```
+2.  **Explore Fields**: List the available fields to understand what needs to be filled.
+    ```
+    list_fields()
+    ```
+3.  **Get Context**: If a field is unclear, get more context about it.
+    ```
+    get_field_context(fieldName="signature_date")
+    ```
+4.  **Fill Fields**: Fill the fields with values. The tool handles different field types (text, checkbox, etc.).
+    ```
+    fill_field(fieldName="full_name", value="John Doe")
+    ```
+5.  **Preview**: Check your work visually.
+    ```
+    preview_pdf()
+    ```
+6.  **Save**: Save the completed form to a new file.
+    ```
+    save_pdf()
+    ```
 
 ## Installation
 
@@ -97,6 +124,26 @@ Or with global installation:
 ```
 
 > For more details about MCP configuration in VS Code, see the [official VS Code MCP documentation](https://code.visualstudio.com/docs/copilot/customization/mcp-servers).
+
+## Troubleshooting
+
+### Common Issues
+
+-   **"File not found" error**:
+    Ensure you are using the absolute path to the PDF file. Relative paths might not resolve correctly depending on the server's working directory.
+
+-   **"PDF is password protected" error**:
+    mcpdf currently does not support password-protected or encrypted PDF files. Please remove the password before opening.
+
+-   **"Elicitation not appearing"**:
+    If `fill_field` fails to prompt for clarification (elicitation), ensure your MCP client supports the `elicitation/create` capability.
+
+-   **Preview not opening**:
+    The `preview_pdf` tool relies on your system's default PDF viewer.
+    -   **macOS**: Uses `open` command.
+    -   **Windows**: Uses `start` command.
+    -   **Linux**: Uses `xdg-open`.
+    Ensure you have a default PDF viewer configured.
 
 ## Development
 
