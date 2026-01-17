@@ -9,11 +9,11 @@
 | Phase | Status | Progress |
 |-------|--------|----------|
 | Phase 1: Foundation | ✅ Complete | 5/5 |
-| Phase 2: PDF Engine | 🔄 In Progress | 2/5 |
+| Phase 2: PDF Engine | 🔄 In Progress | 3/5 |
 | Phase 3: MCP Tools | ⏳ Pending | 0/7 |
 | Phase 4: Polish & Release | ⏳ Pending | 0/5 |
 
-**Total Progress:** 7/22 tasks completed
+**Total Progress:** 8/22 tasks completed
 
 ---
 
@@ -179,17 +179,28 @@
   - All quality checks pass: `pnpm run check` ✅ (65 total tests)
 
 ### Task 2.3: Text Extraction
-- **Status:** ⏳ Pending
-- **Plan:** —
+- **Status:** ✅ Complete
+- **Plan:** [`.cursor/plans/task_2.3_text_extraction_c51ee749.plan.md`](.cursor/plans/task_2.3_text_extraction_c51ee749.plan.md)
 - **Description:** Extract text content for context using pdfjs-dist
 - **Deliverables:**
-  - [ ] Install pdfjs-dist dependency
-  - [ ] Implement text extraction per page
-  - [ ] Extract text near fields for context
-  - [ ] Handle multi-page documents
-  - [ ] Write unit tests
+  - [x] Install pdfjs-dist dependency
+  - [x] Implement text extraction per page
+  - [x] Extract text near fields for context (position data available)
+  - [x] Handle multi-page documents
+  - [x] Write unit tests
 - **Dependencies:** Task 2.1
 - **Notes:**
+  - Updated Node.js requirement to `>=24.0.0` (current Active LTS "Krypton") and added `.nvmrc`
+  - Installed pdfjs-dist v5.4.530
+  - Created `src/pdf/text.ts` with three functions:
+    - `extractPageText(filePath, page)` - Extract text from a single page
+    - `extractAllText(filePath)` - Extract text from all pages
+    - `extractTextWithPositions(filePath, page)` - Extract text with x,y coordinates for field context
+  - Added `TextItem` and `PageText` interfaces to `src/pdf/types.ts`
+  - Added `PdfInvalidPageError` for page validation
+  - Used pdfjs-dist legacy build with `isOffscreenCanvasSupported: false` for Node.js compatibility
+  - 25 new tests in `tests/pdf/text.test.ts`, 90 total tests passing
+  - All quality checks pass: `pnpm run check` ✅
 
 ### Task 2.4: Field Filling
 - **Status:** ⏳ Pending
@@ -395,6 +406,7 @@
 | 2026-01-17 | Task 1.5 | Completed development workflow. Verified build and all quality checks pass. Added `inspect` script for MCP Inspector testing. Created comprehensive README.md following official MCP server patterns with installation, client configuration examples, and development documentation. |
 | 2026-01-17 | Task 2.1 | Completed PDF loading. Created `src/pdf/` module with `loadPdf()` function, custom error classes, and type definitions. Validates file existence, extension, size limit (50MB), and handles encrypted/invalid PDFs. Fixed ESLint config for TypeScript enums. 19 new tests, 39 total passing. |
 | 2026-01-17 | Task 2.2 | Completed form field detection. Created `src/pdf/fields.ts` with `extractFields()`, `getFieldByName()`, `getFieldsByPage()` functions. Added `PdfFieldType` enum and `PdfField` interface. Updated test fixtures with radio button group and multiline text field. 26 new tests, 65 total passing. |
+| 2026-01-17 | Task 2.3 | Completed text extraction. Installed pdfjs-dist v5.4.530, updated Node.js to >=24.0.0 Active LTS with .nvmrc. Created `src/pdf/text.ts` with `extractPageText()`, `extractAllText()`, `extractTextWithPositions()`. Added `TextItem`, `PageText` types and `PdfInvalidPageError`. 25 new tests, 90 total passing. |
 
 ---
 

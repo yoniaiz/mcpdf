@@ -8,7 +8,9 @@ export {
   PdfErrorCode,
   PdfFieldType,
   type LoadedPdf,
+  type PageText,
   type PdfField,
+  type TextItem,
 } from './types.js';
 
 // Errors
@@ -17,6 +19,7 @@ export {
   PdfFieldNotFoundError,
   PdfFileNotFoundError,
   PdfInvalidError,
+  PdfInvalidPageError,
   PdfNotAPdfError,
   PdfProtectedError,
   PdfTooLargeError,
@@ -27,3 +30,10 @@ export { loadPdf } from './reader.js';
 
 // Fields
 export { extractFields, getFieldByName, getFieldsByPage } from './fields.js';
+
+// Text extraction
+export {
+  extractAllText,
+  extractPageText,
+  extractTextWithPositions,
+} from './text.js';

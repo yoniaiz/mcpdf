@@ -86,3 +86,16 @@ export class PdfFieldNotFoundError extends PdfError {
     super(`Field '${fieldName}' not found in PDF`);
   }
 }
+
+/**
+ * Error thrown when a page number is out of range
+ */
+export class PdfInvalidPageError extends PdfError {
+  readonly code = PdfErrorCode.InvalidPage;
+
+  constructor(page: number, totalPages: number) {
+    super(
+      `Invalid page number: ${page}. PDF has ${totalPages} page${totalPages === 1 ? '' : 's'} (1-indexed).`
+    );
+  }
+}

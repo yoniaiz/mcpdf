@@ -26,6 +26,8 @@ export enum PdfErrorCode {
   FileTooLarge = 'FILE_TOO_LARGE',
   /** Form field not found in PDF */
   FieldNotFound = 'FIELD_NOT_FOUND',
+  /** Page number is out of range */
+  InvalidPage = 'INVALID_PAGE',
 }
 
 /**
@@ -79,4 +81,32 @@ export interface PdfField {
   currentValue: string | boolean | null;
   /** Available options for dropdown and radio fields */
   options?: string[];
+}
+
+/**
+ * A single text item extracted from a PDF page with position data
+ */
+export interface TextItem {
+  /** The text content */
+  text: string;
+  /** X coordinate (left position) on the page */
+  x: number;
+  /** Y coordinate (bottom position) on the page */
+  y: number;
+  /** Width of the text in points */
+  width: number;
+  /** Height of the text in points */
+  height: number;
+}
+
+/**
+ * Extracted text content from a PDF page
+ */
+export interface PageText {
+  /** Page number (1-indexed) */
+  page: number;
+  /** Concatenated text content from the page */
+  text: string;
+  /** Individual text items with positions (only included when positions are requested) */
+  items?: TextItem[];
 }
