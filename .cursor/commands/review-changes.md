@@ -9,15 +9,26 @@ completes and before `commit-and-push`.
 
 ---
 
-## Step 1: Read Context
+## Step 1: Determine Active Phase
 
-Read these files:
-- `AGENTS.md` - Workflow rules
-- `context/PROGRESS.md` - Find the task that was just completed
+Read `context/ACTIVE_PHASE.md` first:
+- Extract the phase name from the code block (e.g., `v2-static-forms`)
+- This determines which PROGRESS.md to reference
 
 ---
 
-## Step 2: Identify What Was Done
+## Step 2: Read Context
+
+Read these files (using the active phase):
+- `AGENTS.md` - Workflow rules
+- `context/{phase}/PROGRESS.md` - Find the task that was just completed
+
+Example: If active phase is `v2-static-forms`:
+- Read `context/v2-static-forms/PROGRESS.md`
+
+---
+
+## Step 3: Identify What Was Done
 
 From PROGRESS.md:
 1. Find the task marked `✅ Complete` or `🔄 In Progress` (just finished)
@@ -26,7 +37,7 @@ From PROGRESS.md:
 
 ---
 
-## Step 3: Check Git Status
+## Step 4: Check Git Status
 
 Run these commands to understand what changed:
 
@@ -42,7 +53,7 @@ List all modified, added, and deleted files.
 
 ---
 
-## Step 4: Review Each Changed File
+## Step 5: Review Each Changed File
 
 For each modified/added file, review:
 
@@ -66,7 +77,7 @@ For each modified/added file, review:
 
 ---
 
-## Step 5: Verify Test Coverage
+## Step 6: Verify Test Coverage
 
 **Check tests exist and pass:**
 
@@ -83,7 +94,7 @@ pnpm test
 
 ---
 
-## Step 6: Run Full Quality Checks
+## Step 7: Run Full Quality Checks
 
 **Run the complete check suite:**
 
@@ -104,7 +115,7 @@ If any fail:
 
 ---
 
-## Step 7: Verify Deliverables
+## Step 8: Verify Deliverables
 
 Cross-reference with PROGRESS.md task deliverables:
 
@@ -117,7 +128,7 @@ Cross-reference with PROGRESS.md task deliverables:
 
 ---
 
-## Step 8: Check for Unintended Changes
+## Step 9: Check for Unintended Changes
 
 Look for:
 - [ ] Files changed that weren't part of the plan
@@ -129,7 +140,7 @@ Look for:
 
 ---
 
-## Step 9: Manual Testing (if applicable)
+## Step 10: Manual Testing (if applicable)
 
 For user-facing features:
 - [ ] Test the feature manually
@@ -146,12 +157,13 @@ pnpm run build && pnpm run inspect
 
 ---
 
-## Step 10: Generate Review Report
+## Step 11: Generate Review Report
 
 ```markdown
 # Change Review: Task X.Y - [Task Name]
 
-## Summary
+## Context
+- **Active Phase:** {phase}
 - **Task:** Task X.Y - [Name]
 - **Plan:** `.cursor/plans/task_X.Y_name.plan.md`
 - **Files changed:** X files (+Y/-Z lines)
@@ -201,13 +213,14 @@ pnpm run build && pnpm run inspect
 
 ---
 
-## Step 11: Provide Recommendation
+## Step 12: Provide Recommendation
 
 ### If ready to commit:
 ```
 ---
 ✅ **Change Review Complete: Task X.Y - [Task Name]**
 
+Phase: {active_phase}
 All checks pass. Changes are **ready to commit**.
 
 Summary:
@@ -223,6 +236,7 @@ You can now run `commit-and-push` to finalize these changes.
 ---
 ⚠️ **Change Review Complete: Task X.Y - [Task Name]**
 
+Phase: {active_phase}
 **Issues found that must be fixed:**
 1. [Issue 1]
 2. [Issue 2]
@@ -235,6 +249,7 @@ Please fix these issues, then run `review-changes` again.
 ---
 ❌ **Change Review Complete: Task X.Y - [Task Name]**
 
+Phase: {active_phase}
 **Significant problems found:**
 1. [Problem 1]
 2. [Problem 2]
@@ -251,3 +266,4 @@ Consider reverting changes and re-running `execute-plan` after updating the plan
 - ❌ Ignore failing tests
 - ❌ Rush through code review
 - ❌ Skip manual testing for user-facing features
+- ❌ Reference wrong phase's PROGRESS.md

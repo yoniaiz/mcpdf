@@ -9,16 +9,28 @@ creates a plan and before `execute-plan`.
 
 ---
 
-## Step 1: Read Core Context
+## Step 1: Determine Active Phase
 
-Read these files in parallel:
-- `AGENTS.md` - Workflow rules and conventions
-- `context/PROGRESS.md` - Current task status
-- `context/PRD.md` - Product requirements
+Read `context/ACTIVE_PHASE.md` first:
+- Extract the phase name from the code block (e.g., `v2-static-forms`)
+- This determines which context files to read
 
 ---
 
-## Step 2: Identify the Task and Plan
+## Step 2: Read Core Context
+
+Read these files in parallel (using the active phase):
+- `AGENTS.md` - Workflow rules and conventions
+- `context/{phase}/PROGRESS.md` - Current task status
+- `context/{phase}/PRD.md` - Product requirements
+
+Example: If active phase is `v2-static-forms`:
+- Read `context/v2-static-forms/PROGRESS.md`
+- Read `context/v2-static-forms/PRD.md`
+
+---
+
+## Step 3: Identify the Task and Plan
 
 From PROGRESS.md:
 1. Find the task that is `⏳ Pending` (next to execute) or `🔄 In Progress`
@@ -31,7 +43,7 @@ Find the plan file:
 
 ---
 
-## Step 3: Read the Plan Thoroughly
+## Step 4: Read the Plan Thoroughly
 
 Read the entire plan file and extract:
 - The stated approach/architecture
@@ -42,9 +54,9 @@ Read the entire plan file and extract:
 
 ---
 
-## Step 4: Validate Against PRD
+## Step 5: Validate Against PRD
 
-Compare the plan against `context/PRD.md`:
+Compare the plan against `context/{phase}/PRD.md`:
 
 **Check these items:**
 - [ ] Does the plan cover ALL deliverables listed in PROGRESS.md for this task?
@@ -55,7 +67,7 @@ Compare the plan against `context/PRD.md`:
 
 ---
 
-## Step 5: Validate Against Codebase
+## Step 6: Validate Against Codebase
 
 Explore the current codebase to verify:
 
@@ -68,7 +80,7 @@ Explore the current codebase to verify:
 
 ---
 
-## Step 6: Check for Missing Elements
+## Step 7: Check for Missing Elements
 
 **Common things plans miss:**
 
@@ -99,7 +111,7 @@ Explore the current codebase to verify:
 
 ---
 
-## Step 7: Assess Implementation Order
+## Step 8: Assess Implementation Order
 
 **Check the sequencing:**
 - [ ] Are steps in a logical order?
@@ -109,15 +121,14 @@ Explore the current codebase to verify:
 
 ---
 
-## Step 8: Generate Review Report
-
-Produce a structured report:
+## Step 9: Generate Review Report
 
 ```markdown
 # Plan Review: Task X.Y - [Task Name]
 
-## Plan File
-`.cursor/plans/task_X.Y_name.plan.md`
+## Context
+- **Active Phase:** {phase}
+- **Plan File:** `.cursor/plans/task_X.Y_name.plan.md`
 
 ## ✅ Validated Items
 - [List things that look correct]
@@ -154,15 +165,14 @@ Produce a structured report:
 
 ---
 
-## Step 9: Provide Recommendation
-
-End with one of these recommendations:
+## Step 10: Provide Recommendation
 
 ### If plan is ready:
 ```
 ---
 ✅ **Plan Review Complete: Task X.Y - [Task Name]**
 
+Phase: {active_phase}
 The plan is **ready for execution**. No significant issues found.
 
 You can now run `execute-plan` to implement this task.
@@ -173,6 +183,7 @@ You can now run `execute-plan` to implement this task.
 ---
 ⚠️ **Plan Review Complete: Task X.Y - [Task Name]**
 
+Phase: {active_phase}
 The plan needs **minor updates** before execution:
 1. [Update 1]
 2. [Update 2]
@@ -185,6 +196,7 @@ Please update the plan, then run `execute-plan`.
 ---
 ❌ **Plan Review Complete: Task X.Y - [Task Name]**
 
+Phase: {active_phase}
 The plan has **significant issues** that should be addressed:
 1. [Issue 1]
 2. [Issue 2]
@@ -201,3 +213,4 @@ Consider re-running `prepare-plan` with additional context, or manually update t
 - ❌ Approve plans that miss deliverables
 - ❌ Ignore existing codebase patterns
 - ❌ Rush through the review
+- ❌ Validate against wrong phase's PRD

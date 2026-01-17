@@ -8,15 +8,26 @@ You will implement the plan, run quality checks, and update task status.
 
 ---
 
-## Step 1: Read Core Context
+## Step 1: Determine Active Phase
 
-Read these files:
-- `AGENTS.md` - Workflow rules (especially quality gates)
-- `context/PROGRESS.md` - Find the current task being worked on
+Read `context/ACTIVE_PHASE.md` first:
+- Extract the phase name from the code block (e.g., `v2-static-forms`)
+- This determines which PROGRESS.md to read and update
 
 ---
 
-## Step 2: Identify the Task and Plan
+## Step 2: Read Core Context
+
+Read these files (using the active phase):
+- `AGENTS.md` - Workflow rules (especially quality gates)
+- `context/{phase}/PROGRESS.md` - Find the current task being worked on
+
+Example: If active phase is `v2-static-forms`:
+- Read `context/v2-static-forms/PROGRESS.md`
+
+---
+
+## Step 3: Identify the Task and Plan
 
 From PROGRESS.md, identify:
 1. The task that is `🔄 In Progress` OR the first `⏳ Pending` task
@@ -29,15 +40,15 @@ Find the plan file:
 
 ---
 
-## Step 3: Mark Task In Progress
+## Step 4: Mark Task In Progress
 
-Update PROGRESS.md:
+Update `context/{phase}/PROGRESS.md`:
 - Change task status from `⏳ Pending` to `🔄 In Progress`
 - This signals the task is being actively worked on
 
 ---
 
-## Step 4: Read and Understand the Plan
+## Step 5: Read and Understand the Plan
 
 Read the plan file completely. Understand:
 - The approach and architecture decisions
@@ -47,7 +58,7 @@ Read the plan file completely. Understand:
 
 ---
 
-## Step 5: Execute the Plan
+## Step 6: Execute the Plan
 
 Implement the plan step by step:
 1. Work through each step in order
@@ -62,7 +73,7 @@ Implement the plan step by step:
 
 ---
 
-## Step 6: Run Quality Checks
+## Step 7: Run Quality Checks
 
 **REQUIRED before marking complete:**
 
@@ -81,12 +92,15 @@ If any check fails:
 
 ---
 
-## Step 7: Prepare Completion Report
+## Step 8: Prepare Completion Report
 
 Create a summary of what was done:
 
 ```markdown
 ## Task X.Y: [Task Name] - COMPLETE ✅
+
+### Phase
+{active_phase}
 
 ### What was done:
 - [Implementation summary 1]
@@ -114,7 +128,7 @@ Create a summary of what was done:
 
 ---
 
-## Step 8: Request Approval
+## Step 9: Request Approval
 
 Present the completion report and ask:
 
@@ -122,6 +136,7 @@ Present the completion report and ask:
 ---
 **Task X.Y: [Task Name] is ready for review.**
 
+Phase: {active_phase}
 All quality checks pass. Please review the changes above.
 
 **Should I mark this task as complete and update PROGRESS.md?**
@@ -131,15 +146,16 @@ All quality checks pass. Please review the changes above.
 
 ---
 
-## Step 9: Update PROGRESS.md (after approval)
+## Step 10: Update PROGRESS.md (after approval)
 
 Only after user approves:
 
-1. Update task status to `✅ Complete`
-2. Check off all completed deliverables
-3. Add notes about implementation decisions
-4. Link the plan file used
-5. Add entry to the Change Log
+1. Update `context/{phase}/PROGRESS.md`:
+   - Update task status to `✅ Complete`
+   - Check off all completed deliverables
+   - Add notes about implementation decisions
+   - Link the plan file used
+   - Add entry to the Change Log
 
 Example update:
 ```markdown
@@ -167,6 +183,7 @@ After updating PROGRESS.md:
 ---
 ✅ **Task X.Y: [Task Name] marked as complete.**
 
+Phase: {active_phase}
 PROGRESS.md has been updated with:
 - Status: ✅ Complete
 - All deliverables checked off
@@ -184,3 +201,4 @@ PROGRESS.md has been updated with:
 - ❌ Mark complete without user approval
 - ❌ Deviate significantly from the plan without documenting why
 - ❌ Work on tasks out of order
+- ❌ Update wrong phase's PROGRESS.md

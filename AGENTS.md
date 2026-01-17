@@ -6,6 +6,45 @@
 
 mcpdf is developed using a **task-by-task approval workflow**. Agents work on one task at a time and wait for user approval before proceeding to the next task.
 
+---
+
+## Phase Management
+
+mcpdf development is organized into **phases**. Each phase has its own PRD, PROGRESS, and resources.
+
+### How to Determine Active Phase
+
+1. Read `context/ACTIVE_PHASE.md`
+2. Extract the phase name from the code block (e.g., `v2-static-forms`)
+3. Use that phase's context directory
+
+### Available Phases
+
+| Phase | Directory | Status | Description |
+|-------|-----------|--------|-------------|
+| `v1-acroforms` | `context/v1-acroforms/` | ✅ Complete | Interactive PDF forms (AcroForm) |
+| `v2-static-forms` | `context/v2-static-forms/` | 🔄 Active | Static form support (text overlay) |
+
+### Context File Resolution
+
+Based on the active phase (e.g., `v2-static-forms`):
+
+| File Type | Path |
+|-----------|------|
+| **PRD** | `context/{phase}/PRD.md` |
+| **Progress** | `context/{phase}/PROGRESS.md` |
+| **Phase Resources** | `context/{phase}/resources/*` |
+| **Shared Resources** | `context/resources/*` |
+
+### Switching Phases
+
+To switch to a different phase:
+1. Edit `context/ACTIVE_PHASE.md`
+2. Change the code block to the new phase name
+3. Agents will automatically use the new phase's context
+
+---
+
 ## Workflow
 
 ```
@@ -17,9 +56,11 @@ mcpdf is developed using a **task-by-task approval workflow**. Agents work on on
 ┌─────────────────────────────────────────────────────────────┐
 │  1. READ CONTEXT FILES                                       │
 │     - AGENTS.md (this file - workflow guide)                 │
-│     - context/PRD.md (requirements)                          │
-│     - context/PROGRESS.md (current status)                   │
-│     - context/resources/* (technical references)             │
+│     - context/ACTIVE_PHASE.md (determine current phase)      │
+│     - context/{phase}/PRD.md (requirements)                  │
+│     - context/{phase}/PROGRESS.md (current status)           │
+│     - context/resources/* (shared technical references)      │
+│     - context/{phase}/resources/* (phase-specific refs)      │
 └─────────────────────────────────────────────────────────────┘
                               │
                               ▼
@@ -180,7 +221,7 @@ This opens the MCP Inspector UI at `http://localhost:6274` where you can:
 - Test tool inputs and outputs interactively
 - Debug server communication issues
 
-Use this when implementing or modifying MCP tools (Phase 3).
+Use this when implementing or modifying MCP tools.
 
 ### 7. Link Cursor Plans to PROGRESS.md Tasks
 
@@ -223,12 +264,36 @@ This creates clear traceability between:
 
 ## Context Files
 
+### Phase-Aware Structure
+
+```
+context/
+├── ACTIVE_PHASE.md              # READ FIRST - contains current phase
+├── resources/                   # Shared across all phases
+│   ├── LIBRARIES.md             # Common library references
+│   └── MCP_EXAMPLES.md          # MCP implementation patterns
+├── v1-acroforms/                # Phase 1 (completed)
+│   ├── PRD.md
+│   ├── PROGRESS.md
+│   └── resources/
+│       └── PDF_PATTERNS.md
+└── v2-static-forms/             # Phase 2 (active)
+    ├── PRD.md
+    ├── PROGRESS.md
+    └── resources/
+        └── STATIC_FORM_RESEARCH.md
+```
+
+### File Reference Table
+
 | File | Purpose | When to Read |
 |------|---------|--------------|
 | `AGENTS.md` | This workflow guide | Start of session |
-| `context/PRD.md` | Full product requirements | Start of session, when clarification needed |
-| `context/PROGRESS.md` | Task status and history | Start of session, after each task |
-| `context/resources/` | Technical references | When implementing specific features |
+| `context/ACTIVE_PHASE.md` | Determine current phase | Start of session (read first!) |
+| `context/{phase}/PRD.md` | Phase requirements | Start of session, clarification |
+| `context/{phase}/PROGRESS.md` | Task status and history | Start of session, after each task |
+| `context/resources/` | Shared technical references | When implementing features |
+| `context/{phase}/resources/` | Phase-specific references | When implementing phase features |
 
 ## Status Icons
 
@@ -286,10 +351,10 @@ This creates clear traceability between:
 
 When starting a fresh conversation:
 
-1. **Read all context files first** - Don't assume anything
-2. **Check PROGRESS.md** - Know what's done and what's next
+1. **Read ACTIVE_PHASE.md first** - Determine which phase to work on
+2. **Read phase context files** - PRD.md and PROGRESS.md from the active phase
 3. **Check for existing code** - Don't overwrite completed work
-4. **Announce yourself** - "I've read the context. Current status: Phase 1, Task 1.3 is next."
+4. **Announce yourself** - "I've read the context. Active phase: v2-static-forms, Task 1.1 is next."
 5. **Confirm understanding** - "I'll be implementing [X]. Correct?"
 
 ## Error Recovery
