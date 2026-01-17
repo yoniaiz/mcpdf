@@ -24,6 +24,24 @@ export enum PdfErrorCode {
   ProtectedPdf = 'PROTECTED_PDF',
   /** PDF file exceeds maximum size limit */
   FileTooLarge = 'FILE_TOO_LARGE',
+  /** Form field not found in PDF */
+  FieldNotFound = 'FIELD_NOT_FOUND',
+}
+
+/**
+ * Types of form fields supported by mcpdf
+ */
+export enum PdfFieldType {
+  /** Single-line text input */
+  Text = 'text',
+  /** Multi-line text input */
+  Multiline = 'multiline',
+  /** Boolean checkbox */
+  Checkbox = 'checkbox',
+  /** Radio button group (mutually exclusive options) */
+  Radio = 'radio',
+  /** Dropdown/select list */
+  Dropdown = 'dropdown',
 }
 /* eslint-enable no-unused-vars */
 
@@ -41,4 +59,24 @@ export interface LoadedPdf {
   hasForm: boolean;
   /** Number of form fields in the document */
   fieldCount: number;
+}
+
+/**
+ * Metadata for a single form field in a PDF
+ */
+export interface PdfField {
+  /** Unique field name within the PDF */
+  name: string;
+  /** Type of the form field */
+  type: PdfFieldType;
+  /** Page number where the field appears (1-indexed) */
+  page: number;
+  /** Whether the field is marked as required */
+  required: boolean;
+  /** Whether the field is read-only */
+  readOnly: boolean;
+  /** Current value of the field (null if empty) */
+  currentValue: string | boolean | null;
+  /** Available options for dropdown and radio fields */
+  options?: string[];
 }

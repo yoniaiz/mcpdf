@@ -9,11 +9,11 @@
 | Phase | Status | Progress |
 |-------|--------|----------|
 | Phase 1: Foundation | ✅ Complete | 5/5 |
-| Phase 2: PDF Engine | 🔄 In Progress | 1/5 |
+| Phase 2: PDF Engine | 🔄 In Progress | 2/5 |
 | Phase 3: MCP Tools | ⏳ Pending | 0/7 |
 | Phase 4: Polish & Release | ⏳ Pending | 0/5 |
 
-**Total Progress:** 6/22 tasks completed
+**Total Progress:** 7/22 tasks completed
 
 ---
 
@@ -158,18 +158,25 @@
   - All quality checks pass: `pnpm run check` ✅ (39 total tests)
 
 ### Task 2.2: Form Field Detection
-- **Status:** ⏳ Pending
-- **Plan:** —
+- **Status:** ✅ Complete
+- **Plan:** [`.cursor/plans/task_2.2_form_field_detection_e94d0100.plan.md`](.cursor/plans/task_2.2_form_field_detection_e94d0100.plan.md)
 - **Description:** Detect and extract AcroForm fields
 - **Deliverables:**
-  - [ ] Create `src/pdf/fields.ts`
-  - [ ] Implement field detection from AcroForm
-  - [ ] Extract field metadata (name, type, page, value)
-  - [ ] Handle all field types (text, checkbox, radio, dropdown)
-  - [ ] Create `src/pdf/types.ts` with field type definitions
-  - [ ] Write unit tests with various PDF types
+  - [x] Create `src/pdf/fields.ts`
+  - [x] Implement field detection from AcroForm
+  - [x] Extract field metadata (name, type, page, value)
+  - [x] Handle all field types (text, checkbox, radio, dropdown)
+  - [x] Create `src/pdf/types.ts` with field type definitions
+  - [x] Write unit tests with various PDF types
 - **Dependencies:** Task 2.1
 - **Notes:**
+  - Added `PdfFieldType` enum with values: `text`, `multiline`, `checkbox`, `radio`, `dropdown`
+  - Added `PdfField` interface with: `name`, `type`, `page`, `required`, `readOnly`, `currentValue`, `options`
+  - Added `PdfFieldNotFoundError` for field lookup errors
+  - Created `extractFields()`, `getFieldByName()`, `getFieldsByPage()` functions
+  - Updated test fixtures to include radio button group and multiline text field
+  - 26 new tests in `tests/pdf/fields.test.ts` covering all scenarios
+  - All quality checks pass: `pnpm run check` ✅ (65 total tests)
 
 ### Task 2.3: Text Extraction
 - **Status:** ⏳ Pending
@@ -387,6 +394,7 @@
 | 2026-01-17 | Task 1.4 | Removed duplicate tests from server.test.ts (VERSION/SERVER_NAME already tested in setup.test.ts). Now 20 tests passing. |
 | 2026-01-17 | Task 1.5 | Completed development workflow. Verified build and all quality checks pass. Added `inspect` script for MCP Inspector testing. Created comprehensive README.md following official MCP server patterns with installation, client configuration examples, and development documentation. |
 | 2026-01-17 | Task 2.1 | Completed PDF loading. Created `src/pdf/` module with `loadPdf()` function, custom error classes, and type definitions. Validates file existence, extension, size limit (50MB), and handles encrypted/invalid PDFs. Fixed ESLint config for TypeScript enums. 19 new tests, 39 total passing. |
+| 2026-01-17 | Task 2.2 | Completed form field detection. Created `src/pdf/fields.ts` with `extractFields()`, `getFieldByName()`, `getFieldsByPage()` functions. Added `PdfFieldType` enum and `PdfField` interface. Updated test fixtures with radio button group and multiline text field. 26 new tests, 65 total passing. |
 
 ---
 

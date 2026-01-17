@@ -75,3 +75,14 @@ export class PdfTooLargeError extends PdfError {
     super(`PDF file too large: ${path} (${sizeMB}MB exceeds ${maxMB}MB limit)`);
   }
 }
+
+/**
+ * Error thrown when a form field is not found in the PDF
+ */
+export class PdfFieldNotFoundError extends PdfError {
+  readonly code = PdfErrorCode.FieldNotFound;
+
+  constructor(fieldName: string) {
+    super(`Field '${fieldName}' not found in PDF`);
+  }
+}

@@ -33,7 +33,7 @@ describe('loadPdf', () => {
       expect(result.path).toContain('simple-form.pdf');
       expect(result.pageCount).toBe(1);
       expect(result.hasForm).toBe(true);
-      expect(result.fieldCount).toBe(4); // name, email, agree_terms, country
+      expect(result.fieldCount).toBe(6); // name, email, agree_terms, country, gender, comments
     });
 
     it('should load a multi-page PDF with fields on different pages', async () => {
@@ -199,7 +199,7 @@ describe('loadPdf', () => {
 
     it('should correctly count fields', async () => {
       const simpleForm = await loadPdf(join(pdfsDir, 'simple-form.pdf'));
-      expect(simpleForm.fieldCount).toBe(4);
+      expect(simpleForm.fieldCount).toBe(6); // name, email, agree_terms, country, gender, comments
 
       const multiPage = await loadPdf(join(pdfsDir, 'multi-page.pdf'));
       expect(multiPage.fieldCount).toBe(6);

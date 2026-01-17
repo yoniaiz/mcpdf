@@ -43,6 +43,17 @@ async function generateSimpleForm(): Promise<Uint8Array> {
   countryDropdown.setOptions(['United States', 'Canada', 'United Kingdom', 'Australia', 'Other']);
   countryDropdown.addToPage(page, { x: 50, y: 550, width: 200, height: 20 });
 
+  // Add a radio button group
+  const genderRadio = form.createRadioGroup('gender');
+  genderRadio.addOptionToPage('male', page, { x: 50, y: 500, width: 15, height: 15 });
+  genderRadio.addOptionToPage('female', page, { x: 50, y: 480, width: 15, height: 15 });
+  genderRadio.addOptionToPage('other', page, { x: 50, y: 460, width: 15, height: 15 });
+
+  // Add a multiline text field
+  const commentsField = form.createTextField('comments');
+  commentsField.enableMultiline();
+  commentsField.addToPage(page, { x: 50, y: 380, width: 300, height: 60 });
+
   // Add some text labels (non-interactive)
   const { height } = page.getSize();
   page.drawText('Simple Form Test PDF', { x: 50, y: height - 50, size: 18 });
@@ -50,6 +61,11 @@ async function generateSimpleForm(): Promise<Uint8Array> {
   page.drawText('Email:', { x: 50, y: 670, size: 12 });
   page.drawText('I agree to the terms:', { x: 70, y: 602, size: 12 });
   page.drawText('Country:', { x: 50, y: 570, size: 12 });
+  page.drawText('Gender:', { x: 50, y: 520, size: 12 });
+  page.drawText('Male', { x: 70, y: 502, size: 10 });
+  page.drawText('Female', { x: 70, y: 482, size: 10 });
+  page.drawText('Other', { x: 70, y: 462, size: 10 });
+  page.drawText('Comments:', { x: 50, y: 450, size: 12 });
 
   return pdfDoc.save();
 }
@@ -135,7 +151,9 @@ async function main(): Promise<void> {
   console.log('  Generating simple-form.pdf...');
   const simpleFormBytes = await generateSimpleForm();
   writeFileSync(join(outputDir, 'simple-form.pdf'), simpleFormBytes);
-  console.log('    ✓ simple-form.pdf (4 fields: name, email, agree_terms, country)');
+  console.log(
+    '    ✓ simple-form.pdf (7 fields: name, email, agree_terms, country, gender, comments)'
+  );
 
   // Generate multi-page form
   console.log('  Generating multi-page.pdf...');
