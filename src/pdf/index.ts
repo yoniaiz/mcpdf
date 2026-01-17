@@ -7,6 +7,7 @@ export {
   MAX_PDF_SIZE_BYTES,
   PdfErrorCode,
   PdfFieldType,
+  type FilledField,
   type LoadedPdf,
   type PageText,
   type PdfField,
@@ -19,9 +20,11 @@ export {
   PdfFieldNotFoundError,
   PdfFileNotFoundError,
   PdfInvalidError,
+  PdfInvalidFieldValueError,
   PdfInvalidPageError,
   PdfNotAPdfError,
   PdfProtectedError,
+  PdfReadOnlyFieldError,
   PdfTooLargeError,
 } from './errors.js';
 
@@ -37,3 +40,6 @@ export {
   extractPageText,
   extractTextWithPositions,
 } from './text.js';
+
+// Writer
+export { fillField } from './writer.js';

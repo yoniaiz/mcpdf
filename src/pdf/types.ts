@@ -28,6 +28,10 @@ export enum PdfErrorCode {
   FieldNotFound = 'FIELD_NOT_FOUND',
   /** Page number is out of range */
   InvalidPage = 'INVALID_PAGE',
+  /** Field is read-only and cannot be modified */
+  ReadOnlyField = 'READ_ONLY_FIELD',
+  /** Invalid value for field (e.g., option not in dropdown/radio options) */
+  InvalidFieldValue = 'INVALID_FIELD_VALUE',
 }
 
 /**
@@ -109,4 +113,18 @@ export interface PageText {
   text: string;
   /** Individual text items with positions (only included when positions are requested) */
   items?: TextItem[];
+}
+
+/**
+ * Result of filling a form field
+ */
+export interface FilledField {
+  /** Name of the field that was filled */
+  name: string;
+  /** Type of the field */
+  type: PdfFieldType;
+  /** The new value that was set */
+  value: string | boolean;
+  /** The previous value before filling (null if was empty) */
+  previousValue: string | boolean | null;
 }

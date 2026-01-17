@@ -9,11 +9,11 @@
 | Phase | Status | Progress |
 |-------|--------|----------|
 | Phase 1: Foundation | ✅ Complete | 5/5 |
-| Phase 2: PDF Engine | 🔄 In Progress | 3/5 |
+| Phase 2: PDF Engine | 🔄 In Progress | 4/5 |
 | Phase 3: MCP Tools | ⏳ Pending | 0/7 |
 | Phase 4: Polish & Release | ⏳ Pending | 0/5 |
 
-**Total Progress:** 8/22 tasks completed
+**Total Progress:** 9/22 tasks completed
 
 ---
 
@@ -203,18 +203,24 @@
   - All quality checks pass: `pnpm run check` ✅
 
 ### Task 2.4: Field Filling
-- **Status:** ⏳ Pending
-- **Plan:** —
+- **Status:** ✅ Complete
+- **Plan:** [`.cursor/plans/task_2.4_field_filling_87808267.plan.md`](.cursor/plans/task_2.4_field_filling_87808267.plan.md)
 - **Description:** Implement form field filling operations
 - **Deliverables:**
-  - [ ] Create `src/pdf/writer.ts`
-  - [ ] Implement text field filling
-  - [ ] Implement checkbox/radio filling
-  - [ ] Implement dropdown selection
-  - [ ] Handle multi-line text fields
-  - [ ] Write unit tests
+  - [x] Create `src/pdf/writer.ts`
+  - [x] Implement text field filling
+  - [x] Implement checkbox/radio filling
+  - [x] Implement dropdown selection
+  - [x] Handle multi-line text fields
+  - [x] Write unit tests
 - **Dependencies:** Task 2.2
 - **Notes:**
+  - Created `src/pdf/writer.ts` with `fillField()` function that handles all field types
+  - Added `PdfReadOnlyFieldError` and `PdfInvalidFieldValueError` error classes
+  - Added `FilledField` result type with name, type, value, and previousValue
+  - Validates dropdown/radio values against available options
+  - 33 new tests in `tests/pdf/writer.test.ts`, 123 total tests passing
+  - All quality checks pass: `pnpm run check` ✅
 
 ### Task 2.5: PDF Saving
 - **Status:** ⏳ Pending
@@ -407,6 +413,7 @@
 | 2026-01-17 | Task 2.1 | Completed PDF loading. Created `src/pdf/` module with `loadPdf()` function, custom error classes, and type definitions. Validates file existence, extension, size limit (50MB), and handles encrypted/invalid PDFs. Fixed ESLint config for TypeScript enums. 19 new tests, 39 total passing. |
 | 2026-01-17 | Task 2.2 | Completed form field detection. Created `src/pdf/fields.ts` with `extractFields()`, `getFieldByName()`, `getFieldsByPage()` functions. Added `PdfFieldType` enum and `PdfField` interface. Updated test fixtures with radio button group and multiline text field. 26 new tests, 65 total passing. |
 | 2026-01-17 | Task 2.3 | Completed text extraction. Installed pdfjs-dist v5.4.530, updated Node.js to >=24.0.0 Active LTS with .nvmrc. Created `src/pdf/text.ts` with `extractPageText()`, `extractAllText()`, `extractTextWithPositions()`. Added `TextItem`, `PageText` types and `PdfInvalidPageError`. 25 new tests, 90 total passing. |
+| 2026-01-17 | Task 2.4 | Completed field filling. Created `src/pdf/writer.ts` with `fillField()` function supporting text, checkbox, radio, and dropdown fields. Added `PdfReadOnlyFieldError`, `PdfInvalidFieldValueError` error classes and `FilledField` result type. Validates dropdown/radio values against options. 33 new tests, 123 total passing. |
 
 ---
 

@@ -99,3 +99,28 @@ export class PdfInvalidPageError extends PdfError {
     );
   }
 }
+
+/**
+ * Error thrown when attempting to modify a read-only field
+ */
+export class PdfReadOnlyFieldError extends PdfError {
+  readonly code = PdfErrorCode.ReadOnlyField;
+
+  constructor(fieldName: string) {
+    super(`Field '${fieldName}' is read-only and cannot be modified`);
+  }
+}
+
+/**
+ * Error thrown when an invalid value is provided for a field
+ * (e.g., option not in dropdown/radio options list)
+ */
+export class PdfInvalidFieldValueError extends PdfError {
+  readonly code = PdfErrorCode.InvalidFieldValue;
+
+  constructor(fieldName: string, value: string, options: string[]) {
+    super(
+      `Invalid value '${value}' for field '${fieldName}'. Valid options: ${options.join(', ')}`
+    );
+  }
+}
