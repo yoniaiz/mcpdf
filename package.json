@@ -5,11 +5,30 @@
   "type": "module",
   "main": "./dist/index.mjs",
   "types": "./dist/index.d.mts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.mts"
+    }
+  },
   "bin": {
     "mcpdf": "./dist/index.mjs"
   },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "engines": {
     "node": ">=24.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AnomalyCo/mcpdf.git"
+  },
+  "homepage": "https://github.com/AnomalyCo/mcpdf#readme",
+  "bugs": {
+    "url": "https://github.com/AnomalyCo/mcpdf/issues"
   },
   "scripts": {
     "build": "tsdown",
@@ -27,7 +46,12 @@
     "mcp",
     "pdf",
     "forms",
-    "model-context-protocol"
+    "model-context-protocol",
+    "ai",
+    "claude",
+    "pdf-forms",
+    "form-filling",
+    "acroform"
   ],
   "author": "",
   "license": "MIT",

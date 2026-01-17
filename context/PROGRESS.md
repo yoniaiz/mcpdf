@@ -11,9 +11,9 @@
 | Phase 1: Foundation | ✅ Complete | 5/5 |
 | Phase 2: PDF Engine | ✅ Complete | 5/5 |
 | Phase 3: MCP Tools | ✅ Complete | 7/7 |
-| Phase 4: Polish & Release | 🔄 In Progress | 2/5 |
+| Phase 4: Polish & Release | 🔄 In Progress | 4/5 |
 
-**Total Progress:** 19/22 tasks completed
+**Total Progress:** 21/22 tasks completed
 
 ---
 
@@ -422,17 +422,25 @@
   - Expanded tool descriptions.
 
 ### Task 4.4: Package Configuration
-- **Status:** ⏳ Pending
-- **Plan:** —
+- **Status:** ✅ Complete
+- **Plan:** [`.cursor/plans/task_4.4_package_configuration_x7k9p3m2.plan.md`](.cursor/plans/task_4.4_package_configuration_x7k9p3m2.plan.md)
 - **Description:** Prepare for npm publishing
 - **Deliverables:**
-  - [ ] Configure package.json for publishing
-  - [ ] Add bin entry for CLI
-  - [ ] Set up proper exports
-  - [ ] Add LICENSE file
-  - [ ] Test npm pack
+  - [x] Configure package.json for publishing
+  - [x] Add bin entry for CLI
+  - [x] Set up proper exports
+  - [x] Add LICENSE file
+  - [x] Test npm pack
 - **Dependencies:** Task 4.3
 - **Notes:**
+  - Created LICENSE file with MIT license text
+  - Added `exports` field for ESM module resolution
+  - Added `files` array: `["dist", "README.md", "LICENSE"]`
+  - Added repository/homepage/bugs metadata (using AnomalyCo organization)
+  - Expanded keywords for npm discoverability
+  - Package size: 29KB (7 files)
+  - CLI tested: responds correctly to MCP initialize request
+  - All quality checks pass: 181 tests
 
 ### Task 4.5: Real-World Testing
 - **Status:** ⏳ Pending
@@ -474,6 +482,7 @@
 | 2026-01-17 | Task 4.1 | Completed error handling. Created `src/utils/errors.ts` and standardized error handling across all tools using `formatToolError`. Updated session management to throw typed `SessionError`. Fixed ESLint config. 175 total tests passing. |
 | 2026-01-17 | Task 4.2 | Finalized session state management. Added `updateSessionPath` and comprehensive unit tests. 6 new tests, 181 total passing. |
 | 2026-01-17 | Task 4.3 | Completed documentation. Updated README.md with usage workflows, troubleshooting, and final tool descriptions. Removed development warnings. |
+| 2026-01-17 | Task 4.4 | Completed package configuration. Added LICENSE (MIT), exports field, files whitelist, repository/homepage/bugs metadata, expanded keywords. Package size 29KB. CLI tested and verified working. 181 tests passing. |
 
 ---
 
