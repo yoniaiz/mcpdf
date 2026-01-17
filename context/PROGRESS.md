@@ -420,6 +420,7 @@
 | 2026-01-17 | Task 2.2 | Completed form field detection. Created `src/pdf/fields.ts` with `extractFields()`, `getFieldByName()`, `getFieldsByPage()` functions. Added `PdfFieldType` enum and `PdfField` interface. Updated test fixtures with radio button group and multiline text field. 26 new tests, 65 total passing. |
 | 2026-01-17 | Task 2.3 | Completed text extraction. Installed pdfjs-dist v5.4.530, updated Node.js to >=24.0.0 Active LTS with .nvmrc. Created `src/pdf/text.ts` with `extractPageText()`, `extractAllText()`, `extractTextWithPositions()`. Added `TextItem`, `PageText` types and `PdfInvalidPageError`. 25 new tests, 90 total passing. |
 | 2026-01-17 | Task 2.4 | Completed field filling. Created `src/pdf/writer.ts` with `fillField()` function supporting text, checkbox, radio, and dropdown fields. Added `PdfReadOnlyFieldError`, `PdfInvalidFieldValueError` error classes and `FilledField` result type. Validates dropdown/radio values against options. 33 new tests, 123 total passing. |
+| 2026-01-17 | Task 2.5 | Completed PDF saving. Added `savePdf()` function to `writer.ts` with default `_filled.pdf` suffix, custom output paths, auto directory creation, and protection against overwriting original file. Added `PdfSaveError` class and `SaveResult` interface. 18 new tests, 141 total passing. Phase 2 complete. |
 
 ---
 
