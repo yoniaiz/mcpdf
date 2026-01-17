@@ -2,6 +2,8 @@ import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { z } from 'zod';
 import { extractPageText } from '../pdf/text.js';
 import { getActiveSession } from '../state/session.js';
+import { PdfInvalidPageError } from '../pdf/errors.js';
+import { formatToolError } from '../utils/errors.js';
 
 export function registerGetPageContentTool(server: McpServer): void {
   server.registerTool(
@@ -15,12 +17,9 @@ export function registerGetPageContentTool(server: McpServer): void {
     async ({ page }) => {
       try {
         const session = getActiveSession();
-        if (!session) {
-          throw new Error('No active session. Please open a PDF first.');
-        }
 
         if (page > session.pageCount) {
-          throw new Error(`Page ${page} is out of range. Document has ${session.pageCount} pages.`);
+          throw new PdfInvalidPageError(page, session.pageCount);
         }
 
         // We use the file path instead of the document object because pdfjs-dist 
@@ -40,7 +39,7 @@ export function registerGetPageContentTool(server: McpServer): void {
           content: [
             {
               type: 'text',
-              text: `Error extracting content: ${error instanceof Error ? error.message : String(error)}`,
+              text: formatToolError(error),
             },
           ],
           isError: true,

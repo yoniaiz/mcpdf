@@ -3,6 +3,7 @@ import { z } from 'zod';
 import { basename } from 'node:path';
 import { loadPdf } from '../pdf/reader.js';
 import { setActiveSession } from '../state/session.js';
+import { formatToolError } from '../utils/errors.js';
 
 export function registerOpenPdfTool(server: McpServer): void {
   server.registerTool(
@@ -51,7 +52,7 @@ export function registerOpenPdfTool(server: McpServer): void {
           content: [
             {
               type: 'text',
-              text: `Error opening PDF: ${error instanceof Error ? error.message : String(error)}`,
+              text: formatToolError(error),
             },
           ],
           isError: true,

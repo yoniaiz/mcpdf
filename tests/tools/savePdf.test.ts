@@ -116,7 +116,7 @@ describe('save_pdf tool', () => {
 
     expect(result.isError).toBe(true);
     const content = result.content as ToolResponseContent[];
-    expect(content[0].text).toContain('Error saving PDF');
+    expect(content[0].text).toContain('Failed to save PDF');
     expect(content[0].text).toContain('Write failed');
   });
 });

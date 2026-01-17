@@ -89,7 +89,8 @@ describe('get_page_content tool', () => {
 
     expect(result.isError).toBe(true);
     const text = (result.content as ToolResponseContent[])[0].text;
-    expect(text).toContain('out of range');
+    expect(text).toContain('Invalid page number');
+    expect(text).toContain('PDF has 1 page');
   });
 
   test('should fail if no PDF is open', async ({ client }) => {

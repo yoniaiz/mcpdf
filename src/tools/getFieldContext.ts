@@ -5,6 +5,8 @@ import { extractTextWithPositions } from '../pdf/text.js';
 import { PdfRect, TextItem } from '../pdf/types.js';
 import { getActiveSession } from '../state/session.js';
 
+import { formatToolError } from '../utils/errors.js';
+
 /**
  * Calculate the Euclidean distance between two points.
  */
@@ -82,66 +84,78 @@ export function registerGetFieldContextTool(server: McpServer): void {
       },
     },
     async ({ fieldName }) => {
-      const session = getActiveSession();
-      const document = session.document;
-      const filePath = session.filePath;
+      try {
+        const session = getActiveSession();
+        const document = session.document;
+        const filePath = session.filePath;
 
-      // 1. Get the field metadata
-      const field = getFieldByName(document, fieldName);
+        // 1. Get the field metadata
+        const field = getFieldByName(document, fieldName);
 
-      let inferredLabel: string | undefined;
-      let nearbyText: string[] = [];
+        let inferredLabel: string | undefined;
+        let nearbyText: string[] = [];
 
-      // 2. If field has visual position, find surrounding text
-      if (field.rect && field.page) {
-        try {
-          // Extract text with positions for the specific page
-          const pageText = await extractTextWithPositions(filePath, field.page);
-          
-          if (pageText.items) {
-            // Find likely labels
-            const candidates = findLabelCandidates(field.rect, pageText.items);
-            const sortedCandidates = sortCandidates(field.rect, candidates);
+        // 2. If field has visual position, find surrounding text
+        if (field.rect && field.page) {
+          try {
+            // Extract text with positions for the specific page
+            const pageText = await extractTextWithPositions(filePath, field.page);
+            
+            if (pageText.items) {
+              // Find likely labels
+              const candidates = findLabelCandidates(field.rect, pageText.items);
+              const sortedCandidates = sortCandidates(field.rect, candidates);
 
-            // Take the top candidate as inferred label, and top 5 as context
-            if (sortedCandidates.length > 0) {
-              inferredLabel = sortedCandidates[0].text;
-              nearbyText = sortedCandidates.slice(0, 5).map(c => c.text);
+              // Take the top candidate as inferred label, and top 5 as context
+              if (sortedCandidates.length > 0) {
+                inferredLabel = sortedCandidates[0].text;
+                nearbyText = sortedCandidates.slice(0, 5).map(c => c.text);
+              }
             }
+          } catch (error) {
+            // If text extraction fails, we just don't return context, but tool succeeds with field metadata
+            console.error(`Failed to extract text context for field ${fieldName}:`, error);
           }
-        } catch (error) {
-          // If text extraction fails, we just don't return context, but tool succeeds with field metadata
-          console.error(`Failed to extract text context for field ${fieldName}:`, error);
         }
-      }
 
-      // 3. Construct response
-      const response = {
-        field: {
-          name: field.name,
-          type: field.type,
-          page: field.page,
-          required: field.required,
-          readOnly: field.readOnly,
-          currentValue: field.currentValue,
-          options: field.options,
-          description: field.description, // Tooltip
-        },
-        context: {
-          inferredLabel,
-          nearbyText: nearbyText.length > 0 ? nearbyText : undefined,
-          pageNumber: field.page,
-        }
-      };
-
-      return {
-        content: [
-          {
-            type: 'text',
-            text: JSON.stringify(response, null, 2),
+        // 3. Construct response
+        const response = {
+          field: {
+            name: field.name,
+            type: field.type,
+            page: field.page,
+            required: field.required,
+            readOnly: field.readOnly,
+            currentValue: field.currentValue,
+            options: field.options,
+            description: field.description, // Tooltip
           },
-        ],
-      };
+          context: {
+            inferredLabel,
+            nearbyText: nearbyText.length > 0 ? nearbyText : undefined,
+            pageNumber: field.page,
+          }
+        };
+
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(response, null, 2),
+            },
+          ],
+        };
+      } catch (error) {
+        return {
+          content: [
+            {
+              type: 'text',
+              text: formatToolError(error),
+            },
+          ],
+          isError: true,
+        };
+      }
     }
   );
 }

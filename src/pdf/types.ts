@@ -12,7 +12,6 @@ export const MAX_PDF_SIZE_BYTES = 50 * 1024 * 1024;
 /**
  * Error codes for PDF operations
  */
-/* eslint-disable no-unused-vars */
 export enum PdfErrorCode {
   /** File does not exist at the specified path */
   FileNotFound = 'FILE_NOT_FOUND',
@@ -53,7 +52,6 @@ export enum PdfFieldType {
   /** Dropdown/select list */
   Dropdown = 'dropdown',
 }
-/* eslint-enable no-unused-vars */
 
 /**
  * Result of loading a PDF file

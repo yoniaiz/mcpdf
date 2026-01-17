@@ -1,4 +1,5 @@
 import { PDFDocument } from 'pdf-lib';
+import { SessionError } from '../utils/errors.js';
 
 /**
  * Interface for the active PDF session state
@@ -34,7 +35,7 @@ export function setActiveSession(session: PdfSession): void {
  */
 export function getActiveSession(): PdfSession {
   if (!activeSession) {
-    throw new Error('No active PDF session');
+    throw new SessionError('No active PDF session. Please open a PDF file first using open_pdf.');
   }
   return activeSession;
 }

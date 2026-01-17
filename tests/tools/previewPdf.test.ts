@@ -116,6 +116,6 @@ describe('preview_pdf tool', () => {
 
     expect(result.isError).toBe(true);
     const content = result.content as ToolResponseContent[];
-    expect(content[0].text).toContain('Error: Open failed');
+    expect(content[0].text).toContain('Open failed');
   });
 });

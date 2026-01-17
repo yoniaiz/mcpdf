@@ -372,16 +372,22 @@
 ## Phase 4: Polish & Release
 
 ### Task 4.1: Error Handling
-- **Status:** ⏳ Pending
-- **Plan:** —
+- **Status:** ✅ Complete
+- **Plan:** [`.cursor/plans/task_4.1_error_handling_a1b2c3d4.plan.md`](.cursor/plans/task_4.1_error_handling_a1b2c3d4.plan.md)
 - **Description:** Comprehensive error handling
 - **Deliverables:**
-  - [ ] Create `src/utils/errors.ts` with typed errors
-  - [ ] Add error handling to all tools
-  - [ ] Ensure user-friendly error messages
-  - [ ] Test error scenarios
+  - [x] Create `src/utils/errors.ts` with typed errors
+  - [x] Add error handling to all tools
+  - [x] Ensure user-friendly error messages
+  - [x] Test error scenarios
 - **Dependencies:** Phase 3 complete
 - **Notes:**
+  - Created `src/utils/errors.ts` with `McpdfError`, `SessionError`, and `formatToolError`.
+  - Updated `src/state/session.ts` to use `SessionError` with actionable message ("Please open a PDF file first").
+  - Updated all 7 tools to use `formatToolError` in their try/catch blocks.
+  - Updated existing tests to expect cleaner error messages (removed generic "Error:" prefixes).
+  - Fixed ESLint configuration to correctly disable `no-unused-vars` for TypeScript files.
+  - 175 total tests passing.
 
 ### Task 4.2: Session State Management
 - **Status:** ⏳ Pending
@@ -458,6 +464,7 @@
 | 2026-01-17 | Task 3.5 | Completed preview_pdf tool. Implemented `preview_pdf` which opens the current PDF in the system's default viewer. Handles modified state by saving to a temporary file. Added `src/utils/platform.ts` for cross-platform support. 4 new tests, 160 total passing. |
 | 2026-01-17 | Task 3.6 | Completed save_pdf tool. Implemented `save_pdf` tool allowing users to save modified PDFs. Supports custom output paths or defaults to `_filled.pdf` suffix. 4 new tests, 164 total passing. |
 | 2026-01-17 | Task 3.7 | Completed get_page_content tool. Implemented `get_page_content` using existing text extraction logic. Added integration tests for success and error cases. 4 new tests, 168 total passing. Phase 3 complete. |
+| 2026-01-17 | Task 4.1 | Completed error handling. Created `src/utils/errors.ts` and standardized error handling across all tools using `formatToolError`. Updated session management to throw typed `SessionError`. Fixed ESLint config. 175 total tests passing. |
 
 ---
 

@@ -4,7 +4,7 @@ import path from 'node:path';
 import { getActiveSession } from '../state/session.js';
 import { savePdf } from '../pdf/writer.js';
 import { openFile } from '../utils/platform.js';
-import { PdfError } from '../pdf/errors.js';
+import { formatToolError } from '../utils/errors.js';
 import { z } from 'zod';
 
 export function registerPreviewPdfTool(server: McpServer): void {
@@ -48,23 +48,11 @@ export function registerPreviewPdfTool(server: McpServer): void {
           ],
         };
       } catch (error) {
-        if (error instanceof PdfError) {
-          return {
-            content: [
-              {
-                type: 'text',
-                text: `Error previewing PDF: ${error.message}`,
-              },
-            ],
-            isError: true,
-          };
-        }
-        // Handle session errors (e.g. "No active PDF session")
         return {
           content: [
             {
               type: 'text',
-              text: `Error: ${error instanceof Error ? error.message : String(error)}`,
+              text: formatToolError(error),
             },
           ],
           isError: true,

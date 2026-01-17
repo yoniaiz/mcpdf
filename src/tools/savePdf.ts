@@ -2,7 +2,7 @@ import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { z } from 'zod';
 import { getActiveSession } from '../state/session.js';
 import { savePdf } from '../pdf/writer.js';
-import { PdfError } from '../pdf/errors.js';
+import { formatToolError } from '../utils/errors.js';
 
 export function registerSavePdfTool(server: McpServer): void {
   server.registerTool(
@@ -35,22 +35,11 @@ export function registerSavePdfTool(server: McpServer): void {
           ],
         };
       } catch (error) {
-        if (error instanceof PdfError) {
-          return {
-            content: [
-              {
-                type: 'text',
-                text: `Error saving PDF: ${error.message}`,
-              },
-            ],
-            isError: true,
-          };
-        }
         return {
           content: [
             {
               type: 'text',
-              text: `Error: ${error instanceof Error ? error.message : String(error)}`,
+              text: formatToolError(error),
             },
           ],
           isError: true,

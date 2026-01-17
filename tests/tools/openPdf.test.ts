@@ -56,7 +56,6 @@ describe('open_pdf tool', () => {
 
     expect(result.isError).toBe(true);
     const content = result.content as ToolResponseContent[];
-    expect(content[0].text).toContain('Error opening PDF');
     expect(content[0].text).toContain('PDF file not found');
 
     expect(isSessionActive()).toBe(false);
@@ -77,7 +76,6 @@ describe('open_pdf tool', () => {
 
       expect(result.isError).toBe(true);
       const content = result.content as ToolResponseContent[];
-      expect(content[0].text).toContain('Error opening PDF');
       // The error message from loadPdf for wrong extension is "File is not a PDF: ..."
       expect(content[0].text).toContain('File is not a PDF');
     } finally {
