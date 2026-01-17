@@ -9,11 +9,11 @@
 | Phase | Status | Progress |
 |-------|--------|----------|
 | Phase 1: Foundation | ✅ Complete | 5/5 |
-| Phase 2: PDF Engine | ⏳ Pending | 0/5 |
+| Phase 2: PDF Engine | 🔄 In Progress | 1/5 |
 | Phase 3: MCP Tools | ⏳ Pending | 0/7 |
 | Phase 4: Polish & Release | ⏳ Pending | 0/5 |
 
-**Total Progress:** 5/22 tasks completed
+**Total Progress:** 6/22 tasks completed
 
 ---
 
@@ -137,18 +137,25 @@
 ## Phase 2: PDF Engine
 
 ### Task 2.1: PDF Loading
-- **Status:** ⏳ Pending
-- **Plan:** —
+- **Status:** ✅ Complete
+- **Plan:** [`.cursor/plans/task_2.1_pdf_loading_5ad7240e.plan.md`](.cursor/plans/task_2.1_pdf_loading_5ad7240e.plan.md)
 - **Description:** Implement PDF file loading with pdf-lib
 - **Deliverables:**
-  - [ ] Install pdf-lib dependency
-  - [ ] Create `src/pdf/reader.ts`
-  - [ ] Implement PDF loading function
-  - [ ] Handle file validation (exists, is PDF)
-  - [ ] Handle error cases (not found, invalid, protected)
-  - [ ] Write unit tests
+  - [x] Install pdf-lib dependency (already installed in Phase 1)
+  - [x] Create `src/pdf/reader.ts`
+  - [x] Implement PDF loading function
+  - [x] Handle file validation (exists, is PDF)
+  - [x] Handle error cases (not found, invalid, protected)
+  - [x] Write unit tests
 - **Dependencies:** Phase 1 complete
 - **Notes:**
+  - Created `src/pdf/` directory with 4 files: `types.ts`, `errors.ts`, `reader.ts`, `index.ts`
+  - Implemented `loadPdf()` function with validation sequence: file exists → .pdf extension → size limit (50MB) → pdf-lib load → extract metadata
+  - Created custom error classes: `PdfFileNotFoundError`, `PdfNotAPdfError`, `PdfInvalidError`, `PdfProtectedError`, `PdfTooLargeError`
+  - `LoadedPdf` interface returns: document, path, pageCount, hasForm, fieldCount
+  - Fixed ESLint config to disable base `no-unused-vars` rule for TypeScript files (was falsely flagging enum values)
+  - 19 new tests in `tests/pdf/reader.test.ts` covering all scenarios
+  - All quality checks pass: `pnpm run check` ✅ (39 total tests)
 
 ### Task 2.2: Form Field Detection
 - **Status:** ⏳ Pending
@@ -379,6 +386,7 @@
 | 2026-01-16 | Task 1.4 | Completed test infrastructure. Created Vitest fixtures with test.extend() for MCP server/client lifecycle via InMemoryTransport. Added PDF fixture generator (pdf-lib), created test PDFs. Refactored src/index.ts to src/server.ts factory. 22 tests passing. |
 | 2026-01-17 | Task 1.4 | Removed duplicate tests from server.test.ts (VERSION/SERVER_NAME already tested in setup.test.ts). Now 20 tests passing. |
 | 2026-01-17 | Task 1.5 | Completed development workflow. Verified build and all quality checks pass. Added `inspect` script for MCP Inspector testing. Created comprehensive README.md following official MCP server patterns with installation, client configuration examples, and development documentation. |
+| 2026-01-17 | Task 2.1 | Completed PDF loading. Created `src/pdf/` module with `loadPdf()` function, custom error classes, and type definitions. Validates file existence, extension, size limit (50MB), and handles encrypted/invalid PDFs. Fixed ESLint config for TypeScript enums. 19 new tests, 39 total passing. |
 
 ---
 
