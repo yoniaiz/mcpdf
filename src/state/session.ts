@@ -63,3 +63,15 @@ export function clearSession(): void {
 export function isSessionActive(): boolean {
   return activeSession !== null;
 }
+
+/**
+ * Update the session path (e.g., after saving to a new file)
+ * Resets the modified flag to false.
+ * @param newPath The new absolute file path
+ */
+export function updateSessionPath(newPath: string): void {
+  if (activeSession) {
+    activeSession.filePath = newPath;
+    activeSession.isModified = false;
+  }
+}
