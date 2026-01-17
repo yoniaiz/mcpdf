@@ -124,3 +124,17 @@ export class PdfInvalidFieldValueError extends PdfError {
     );
   }
 }
+
+/**
+ * Error thrown when saving a PDF fails
+ */
+export class PdfSaveError extends PdfError {
+  readonly code = PdfErrorCode.SaveFailed;
+
+  constructor(path: string, reason?: string) {
+    const message = reason
+      ? `Failed to save PDF: ${path}. Reason: ${reason}`
+      : `Failed to save PDF: ${path}`;
+    super(message);
+  }
+}

@@ -32,6 +32,8 @@ export enum PdfErrorCode {
   ReadOnlyField = 'READ_ONLY_FIELD',
   /** Invalid value for field (e.g., option not in dropdown/radio options) */
   InvalidFieldValue = 'INVALID_FIELD_VALUE',
+  /** Failed to save PDF to file */
+  SaveFailed = 'SAVE_FAILED',
 }
 
 /**
@@ -127,4 +129,14 @@ export interface FilledField {
   value: string | boolean;
   /** The previous value before filling (null if was empty) */
   previousValue: string | boolean | null;
+}
+
+/**
+ * Result of saving a PDF to file
+ */
+export interface SaveResult {
+  /** Absolute path to the saved file */
+  outputPath: string;
+  /** Number of bytes written to the file */
+  bytesWritten: number;
 }

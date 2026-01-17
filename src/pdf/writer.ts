@@ -1,7 +1,9 @@
 /**
- * Form field filling operations for PDF documents
+ * Form field filling and PDF saving operations
  */
 
+import { mkdir, writeFile } from 'node:fs/promises';
+import { dirname, resolve } from 'node:path';
 import {
   PDFCheckBox,
   PDFDocument,
@@ -14,8 +16,9 @@ import {
   PdfFieldNotFoundError,
   PdfInvalidFieldValueError,
   PdfReadOnlyFieldError,
+  PdfSaveError,
 } from './errors.js';
-import { FilledField, PdfFieldType } from './types.js';
+import { FilledField, PdfFieldType, SaveResult } from './types.js';
 
 /**
  * Detect the field type from a pdf-lib PDFField instance.
@@ -209,4 +212,63 @@ export function fillField(
     value: newValue,
     previousValue,
   };
+}
+
+/**
+ * Save a PDF document to a file.
+ *
+ * Creates the output directory if it doesn't exist. By default, saves to
+ * `{originalPath}_filled.pdf` if no output path is provided.
+ *
+ * @param document - The PDFDocument to save
+ * @param originalPath - Path to the original PDF (used for default output name)
+ * @param outputPath - Optional custom output path (defaults to `{original}_filled.pdf`)
+ * @returns SaveResult with output path and bytes written
+ * @throws {PdfSaveError} If output path equals original path or write fails
+ */
+export async function savePdf(
+  document: PDFDocument,
+  originalPath: string,
+  outputPath?: string
+): Promise<SaveResult> {
+  // 1. Generate default output path if not provided
+  const defaultOutput = originalPath.replace(/\.pdf$/i, '_filled.pdf');
+  const targetPath = outputPath ?? defaultOutput;
+
+  // 2. Resolve to absolute paths
+  const absoluteOriginalPath = resolve(originalPath);
+  const absoluteOutputPath = resolve(targetPath);
+
+  // 3. Validate output path is not the same as original
+  if (absoluteOutputPath === absoluteOriginalPath) {
+    throw new PdfSaveError(
+      absoluteOutputPath,
+      'Output path cannot be the same as original file'
+    );
+  }
+
+  try {
+    // 4. Create parent directory if it doesn't exist
+    await mkdir(dirname(absoluteOutputPath), { recursive: true });
+
+    // 5. Serialize PDF to bytes
+    const pdfBytes = await document.save();
+
+    // 6. Write to file (overwrites if exists)
+    await writeFile(absoluteOutputPath, pdfBytes);
+
+    // 7. Return result
+    return {
+      outputPath: absoluteOutputPath,
+      bytesWritten: pdfBytes.length,
+    };
+  } catch (error) {
+    if (error instanceof PdfSaveError) {
+      throw error;
+    }
+    throw new PdfSaveError(
+      absoluteOutputPath,
+      error instanceof Error ? error.message : 'Unknown error'
+    );
+  }
 }

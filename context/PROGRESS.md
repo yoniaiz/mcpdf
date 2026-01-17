@@ -9,11 +9,11 @@
 | Phase | Status | Progress |
 |-------|--------|----------|
 | Phase 1: Foundation | ✅ Complete | 5/5 |
-| Phase 2: PDF Engine | 🔄 In Progress | 4/5 |
+| Phase 2: PDF Engine | ✅ Complete | 5/5 |
 | Phase 3: MCP Tools | ⏳ Pending | 0/7 |
 | Phase 4: Polish & Release | ⏳ Pending | 0/5 |
 
-**Total Progress:** 9/22 tasks completed
+**Total Progress:** 10/22 tasks completed
 
 ---
 
@@ -223,17 +223,23 @@
   - All quality checks pass: `pnpm run check` ✅
 
 ### Task 2.5: PDF Saving
-- **Status:** ⏳ Pending
-- **Plan:** —
+- **Status:** ✅ Complete
+- **Plan:** [`.cursor/plans/task_2.5_pdf_saving_8f40aa8a.plan.md`](.cursor/plans/task_2.5_pdf_saving_8f40aa8a.plan.md)
 - **Description:** Save modified PDFs to new files
 - **Deliverables:**
-  - [ ] Implement PDF serialization
-  - [ ] Implement save to file path
-  - [ ] Generate default output filename
-  - [ ] Ensure original file unchanged
-  - [ ] Write unit tests
+  - [x] Implement PDF serialization
+  - [x] Implement save to file path
+  - [x] Generate default output filename
+  - [x] Ensure original file unchanged
+  - [x] Write unit tests
 - **Dependencies:** Task 2.4
 - **Notes:**
+  - Added `SaveFailed` error code and `SaveResult` interface to types
+  - Created `PdfSaveError` class following existing error patterns
+  - Implemented `savePdf()` function with default `_filled.pdf` suffix, custom paths, auto directory creation
+  - Validates output path is not the same as original (case-sensitive comparison)
+  - 18 new tests in `tests/pdf/writer.test.ts`, 141 total tests passing
+  - All quality checks pass: `pnpm run check` ✅
 
 ---
 

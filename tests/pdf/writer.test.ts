@@ -1,20 +1,23 @@
 /**
- * Tests for PDF form field filling operations
+ * Tests for PDF form field filling and saving operations
  */
 
 import { describe, expect } from '../fixtures/index.js';
-import { test } from 'vitest';
+import { afterEach, beforeEach, test } from 'vitest';
 import { loadPdf } from '../../src/pdf/reader.js';
-import { fillField } from '../../src/pdf/writer.js';
+import { fillField, savePdf } from '../../src/pdf/writer.js';
 import { extractFields, getFieldByName } from '../../src/pdf/fields.js';
 import {
   PdfFieldNotFoundError,
   PdfInvalidFieldValueError,
   PdfReadOnlyFieldError,
+  PdfSaveError,
 } from '../../src/pdf/errors.js';
 import { PdfFieldType } from '../../src/pdf/types.js';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { mkdtemp, rm, stat, readFile } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -446,5 +449,286 @@ describe('PdfInvalidFieldValueError', () => {
     expect(error.message).toContain('option1');
     expect(error.message).toContain('option2');
     expect(error.message).toContain('option3');
+  });
+});
+
+describe('savePdf', () => {
+  let tempDir: string;
+
+  beforeEach(async () => {
+    tempDir = await mkdtemp(join(tmpdir(), 'mcpdf-test-'));
+  });
+
+  afterEach(async () => {
+    await rm(tempDir, { recursive: true, force: true });
+  });
+
+  describe('default output path', () => {
+    test('saves with default _filled.pdf suffix', async () => {
+      const { document } = await loadPdf(SIMPLE_FORM);
+      fillField(document, 'name', 'Test User');
+
+      const result = await savePdf(document, SIMPLE_FORM);
+
+      expect(result.outputPath).toMatch(/_filled\.pdf$/);
+      expect(result.outputPath).toBe(SIMPLE_FORM.replace(/\.pdf$/i, '_filled.pdf'));
+      expect(result.bytesWritten).toBeGreaterThan(0);
+
+      // Verify file exists
+      const fileStat = await stat(result.outputPath);
+      expect(fileStat.isFile()).toBe(true);
+
+      // Clean up the saved file
+      await rm(result.outputPath);
+    });
+
+    test('handles uppercase .PDF extension', async () => {
+      const { document } = await loadPdf(SIMPLE_FORM);
+
+      // Create a temp file with uppercase extension
+      const tempPdfPath = join(tempDir, 'TEST.PDF');
+
+      // Save using a custom path first to create a PDF in temp
+      await savePdf(document, SIMPLE_FORM, tempPdfPath);
+
+      // Now load that PDF and save with default name
+      const { document: doc2 } = await loadPdf(tempPdfPath);
+      const result = await savePdf(doc2, tempPdfPath);
+
+      expect(result.outputPath).toBe(join(tempDir, 'TEST_filled.pdf'));
+    });
+  });
+
+  describe('custom output path', () => {
+    test('saves to custom output path', async () => {
+      const { document } = await loadPdf(SIMPLE_FORM);
+      const customPath = join(tempDir, 'custom-output.pdf');
+
+      const result = await savePdf(document, SIMPLE_FORM, customPath);
+
+      expect(result.outputPath).toBe(customPath);
+      expect(result.bytesWritten).toBeGreaterThan(0);
+
+      // Verify file exists
+      const fileStat = await stat(customPath);
+      expect(fileStat.isFile()).toBe(true);
+    });
+
+    test('creates parent directories if they do not exist', async () => {
+      const { document } = await loadPdf(SIMPLE_FORM);
+      const nestedPath = join(tempDir, 'nested', 'deeply', 'output.pdf');
+
+      const result = await savePdf(document, SIMPLE_FORM, nestedPath);
+
+      expect(result.outputPath).toBe(nestedPath);
+
+      // Verify file was created in nested directory
+      const fileStat = await stat(nestedPath);
+      expect(fileStat.isFile()).toBe(true);
+    });
+
+    test('overwrites existing files', async () => {
+      const { document } = await loadPdf(SIMPLE_FORM);
+      const outputPath = join(tempDir, 'overwrite-test.pdf');
+
+      // Save first time
+      const result1 = await savePdf(document, SIMPLE_FORM, outputPath);
+      expect(result1.bytesWritten).toBeGreaterThan(0);
+
+      // Modify the document
+      fillField(document, 'name', 'Modified Name');
+
+      // Save again to the same path
+      const result2 = await savePdf(document, SIMPLE_FORM, outputPath);
+
+      // File should be overwritten
+      expect(result2.outputPath).toBe(outputPath);
+      // Size should be similar (might change slightly due to content)
+      expect(result2.bytesWritten).toBeGreaterThan(0);
+
+      // Verify the overwritten file exists
+      const fileStat = await stat(outputPath);
+      expect(fileStat.isFile()).toBe(true);
+    });
+  });
+
+  describe('error cases', () => {
+    test('throws when output path equals original path', async () => {
+      const { document } = await loadPdf(SIMPLE_FORM);
+
+      await expect(savePdf(document, SIMPLE_FORM, SIMPLE_FORM)).rejects.toThrow(
+        PdfSaveError
+      );
+    });
+
+    test('error message indicates output equals original', async () => {
+      const { document } = await loadPdf(SIMPLE_FORM);
+
+      try {
+        await savePdf(document, SIMPLE_FORM, SIMPLE_FORM);
+        expect(true).toBe(false); // Should not reach here
+      } catch (error) {
+        expect(error).toBeInstanceOf(PdfSaveError);
+        expect((error as Error).message).toContain(
+          'Output path cannot be the same as original file'
+        );
+      }
+    });
+
+    test('throws when relative paths resolve to the same file', async () => {
+      const { document } = await loadPdf(SIMPLE_FORM);
+      // Use a relative path that resolves to the same file
+      const relativePath = join(dirname(SIMPLE_FORM), 'simple-form.pdf');
+
+      await expect(savePdf(document, SIMPLE_FORM, relativePath)).rejects.toThrow(
+        PdfSaveError
+      );
+    });
+  });
+
+  describe('preserves filled values', () => {
+    test('saved PDF preserves text field values', async () => {
+      const { document } = await loadPdf(SIMPLE_FORM);
+      fillField(document, 'name', 'Preserved Name');
+      fillField(document, 'email', 'test@preserved.com');
+
+      const outputPath = join(tempDir, 'preserved.pdf');
+      await savePdf(document, SIMPLE_FORM, outputPath);
+
+      // Load the saved PDF and verify values
+      const { document: savedDoc } = await loadPdf(outputPath);
+      const nameField = getFieldByName(savedDoc, 'name');
+      const emailField = getFieldByName(savedDoc, 'email');
+
+      expect(nameField.currentValue).toBe('Preserved Name');
+      expect(emailField.currentValue).toBe('test@preserved.com');
+    });
+
+    test('saved PDF preserves checkbox values', async () => {
+      const { document } = await loadPdf(SIMPLE_FORM);
+      fillField(document, 'agree_terms', true);
+
+      const outputPath = join(tempDir, 'checkbox.pdf');
+      await savePdf(document, SIMPLE_FORM, outputPath);
+
+      // Load the saved PDF and verify values
+      const { document: savedDoc } = await loadPdf(outputPath);
+      const field = getFieldByName(savedDoc, 'agree_terms');
+
+      expect(field.currentValue).toBe(true);
+    });
+
+    test('saved PDF preserves dropdown values', async () => {
+      const { document } = await loadPdf(SIMPLE_FORM);
+      fillField(document, 'country', 'Canada');
+
+      const outputPath = join(tempDir, 'dropdown.pdf');
+      await savePdf(document, SIMPLE_FORM, outputPath);
+
+      // Load the saved PDF and verify values
+      const { document: savedDoc } = await loadPdf(outputPath);
+      const field = getFieldByName(savedDoc, 'country');
+
+      expect(field.currentValue).toBe('Canada');
+    });
+
+    test('saved PDF preserves radio values', async () => {
+      const { document } = await loadPdf(SIMPLE_FORM);
+      fillField(document, 'gender', 'female');
+
+      const outputPath = join(tempDir, 'radio.pdf');
+      await savePdf(document, SIMPLE_FORM, outputPath);
+
+      // Load the saved PDF and verify values
+      const { document: savedDoc } = await loadPdf(outputPath);
+      const field = getFieldByName(savedDoc, 'gender');
+
+      expect(field.currentValue).toBe('female');
+    });
+
+    test('saved PDF preserves multiline text values', async () => {
+      const { document } = await loadPdf(SIMPLE_FORM);
+      const multilineValue = 'Line 1\nLine 2\nLine 3';
+      fillField(document, 'comments', multilineValue);
+
+      const outputPath = join(tempDir, 'multiline.pdf');
+      await savePdf(document, SIMPLE_FORM, outputPath);
+
+      // Load the saved PDF and verify values
+      const { document: savedDoc } = await loadPdf(outputPath);
+      const field = getFieldByName(savedDoc, 'comments');
+
+      expect(field.currentValue).toBe(multilineValue);
+    });
+  });
+
+  describe('multi-page PDFs', () => {
+    test('saves multi-page PDF successfully', async () => {
+      const { document } = await loadPdf(MULTI_PAGE);
+
+      const outputPath = join(tempDir, 'multi-page-saved.pdf');
+      const result = await savePdf(document, MULTI_PAGE, outputPath);
+
+      expect(result.bytesWritten).toBeGreaterThan(0);
+
+      // Verify it can be loaded and has correct page count
+      const { pageCount } = await loadPdf(outputPath);
+      expect(pageCount).toBe(3);
+    });
+
+    test('multi-page PDF preserves fields across all pages', async () => {
+      const { document } = await loadPdf(MULTI_PAGE);
+      // Page 1 field
+      fillField(document, 'first_name', 'Jane');
+      // Page 2 field
+      fillField(document, 'phone', '555-1234');
+      // Page 3 field
+      fillField(document, 'preferred_language', 'French');
+
+      const outputPath = join(tempDir, 'multi-page-fields.pdf');
+      await savePdf(document, MULTI_PAGE, outputPath);
+
+      // Load and verify all fields
+      const { document: savedDoc } = await loadPdf(outputPath);
+      const fields = extractFields(savedDoc);
+
+      const firstName = fields.find((f) => f.name === 'first_name');
+      const phone = fields.find((f) => f.name === 'phone');
+      const language = fields.find((f) => f.name === 'preferred_language');
+
+      expect(firstName?.currentValue).toBe('Jane');
+      expect(phone?.currentValue).toBe('555-1234');
+      expect(language?.currentValue).toBe('French');
+    });
+  });
+
+  describe('bytesWritten accuracy', () => {
+    test('bytesWritten matches actual file size', async () => {
+      const { document } = await loadPdf(SIMPLE_FORM);
+
+      const outputPath = join(tempDir, 'size-check.pdf');
+      const result = await savePdf(document, SIMPLE_FORM, outputPath);
+
+      // Read the file and check size matches
+      const fileBuffer = await readFile(outputPath);
+      expect(result.bytesWritten).toBe(fileBuffer.length);
+    });
+  });
+});
+
+describe('PdfSaveError', () => {
+  test('error has correct code', () => {
+    const error = new PdfSaveError('/path/to/file.pdf');
+
+    expect(error.code).toBe('SAVE_FAILED');
+    expect(error.message).toContain('/path/to/file.pdf');
+  });
+
+  test('error includes reason when provided', () => {
+    const error = new PdfSaveError('/path/to/file.pdf', 'Permission denied');
+
+    expect(error.code).toBe('SAVE_FAILED');
+    expect(error.message).toContain('/path/to/file.pdf');
+    expect(error.message).toContain('Permission denied');
   });
 });

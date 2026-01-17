@@ -11,6 +11,7 @@ export {
   type LoadedPdf,
   type PageText,
   type PdfField,
+  type SaveResult,
   type TextItem,
 } from './types.js';
 
@@ -25,6 +26,7 @@ export {
   PdfNotAPdfError,
   PdfProtectedError,
   PdfReadOnlyFieldError,
+  PdfSaveError,
   PdfTooLargeError,
 } from './errors.js';
 
@@ -42,4 +44,4 @@ export {
 } from './text.js';
 
 // Writer
-export { fillField } from './writer.js';
+export { fillField, savePdf } from './writer.js';
