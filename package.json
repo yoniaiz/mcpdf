@@ -20,7 +20,8 @@
     "lint:fix": "eslint . --fix",
     "typecheck": "tsc --noEmit",
     "check": "pnpm run lint && pnpm run typecheck && pnpm run test",
-    "generate:fixtures": "tsx tests/pdfs/generator.ts"
+    "generate:fixtures": "tsx tests/pdfs/generator.ts",
+    "inspect": "npx -y @modelcontextprotocol/inspector ./dist/index.mjs"
   },
   "keywords": [
     "mcp",
