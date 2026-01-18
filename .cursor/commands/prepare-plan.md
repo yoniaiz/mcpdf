@@ -46,8 +46,8 @@ Extract from the task:
 
 ## Step 4: Check for Existing Plans
 
-Look in `.cursor/plans/` for any plans matching the task ID:
-- Pattern: `task_X.Y_*.plan.md` (e.g., `task_2.4_*.plan.md`)
+Look in `.cursor/plans/` for any plans matching the phase and task ID:
+- Pattern: `{phase}_task_X.Y_*.plan.md` (e.g., `v2-static-forms_task_2.4_*.plan.md`)
 - If found, read them to understand any previous attempts or partial work
 - Note what was already done vs what needs to be done
 
@@ -104,7 +104,7 @@ Only read files relevant to the current task.
 Produce a structured brief in this format:
 
 \`\`\`markdown
-# Planning Brief: {phase}/Task X.Y - [Task Name]
+# Planning Brief: Task X.Y - [Task Name]
 
 ## Context
 - **Active Phase:** {phase}
@@ -155,14 +155,13 @@ Produce a structured brief in this format:
 End with:
 \`\`\`
 ---
-📋 **Planning Brief Complete for {phase}/Task X.Y: [Task Name]**
+📋 **Planning Brief Complete for Task X.Y: [Task Name]**
 
 Phase: {active_phase}
 
 You can now use **Cursor Plan Mode** to create the implementation plan.
 
-Suggested plan title: \`{active_phase}/Task X.Y: [Task Name] - [Main Action]\`
-Suggested file name: \`{active_phase}_task_X.Y_{task_name_snake_case}_{random_8_chars}.plan.md\`
+Suggested plan title: \`Task X.Y: [Task Name] - [Main Action]\`
 \`\`\`
 
 ---
