@@ -18,9 +18,9 @@ describe('MCP Server', () => {
   });
 
   describe('Tool Registration', () => {
-    test('should register all 8 tools', async ({ client }) => {
+    test('should register all 9 tools', async ({ client }) => {
       const { tools } = await client.listTools();
-      expect(tools).toHaveLength(8);
+      expect(tools).toHaveLength(9);
     });
 
     test('should register open_pdf tool', async ({ client }) => {
@@ -73,6 +73,13 @@ describe('MCP Server', () => {
       expect(tool).toBeDefined();
     });
 
+    test('should register draw_text tool', async ({ client }) => {
+      const { tools } = await client.listTools();
+      const tool = tools.find((t) => t.name === 'draw_text');
+      expect(tool).toBeDefined();
+      expect(tool?.description).toContain('text');
+    });
+
     test('should have all expected tool names', async ({ client }) => {
       const { tools } = await client.listTools();
       const toolNames = tools.map((t) => t.name);
@@ -85,6 +92,7 @@ describe('MCP Server', () => {
       expect(toolNames).toContain('save_pdf');
       expect(toolNames).toContain('get_page_content');
       expect(toolNames).toContain('get_text_with_positions');
+      expect(toolNames).toContain('draw_text');
     });
   });
 

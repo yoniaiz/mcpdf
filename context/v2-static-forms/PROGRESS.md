@@ -8,10 +8,10 @@
 
 | Phase | Status | Progress |
 |-------|--------|----------|
-| Phase 1: Core Tools | 🔄 In Progress | 2/4 |
+| Phase 1: Core Tools | 🔄 In Progress | 3/4 |
 | Phase 2: Integration & Polish | ⏳ Pending | 0/3 |
 
-**Total Progress:** 2/7 tasks completed
+**Total Progress:** 3/7 tasks completed
 
 ---
 
@@ -44,18 +44,18 @@
 - **Notes:** Implemented tool returning JSON with page, width, height, text, and items array. Each item has text, x, y, width, height. 8 integration tests added covering extraction, dimensions, multi-page, and error cases.
 
 ### Task 1.3: draw_text Tool
-- **Status:** ⏳ Pending
-- **Plan:** —
+- **Status:** ✅ Complete
+- **Plan:** [`.cursor/plans/draw_text_tool_d633ed99.plan.md`](.cursor/plans/draw_text_tool_d633ed99.plan.md)
 - **Description:** Create MCP tool to draw text at coordinates
 - **Deliverables:**
-  - [ ] Create `src/tools/drawText.ts`
-  - [ ] Accept text, x, y, page, fontSize, fontName parameters
-  - [ ] Use overlay module for rendering
-  - [ ] Track modifications in session
-  - [ ] Register tool in server
-  - [ ] Write integration tests in `tests/tools/drawText.test.ts`
+  - [x] Create `src/tools/drawText.ts`
+  - [x] Accept text, x, y, page, fontSize, fontName parameters
+  - [x] Use overlay module for rendering
+  - [x] Track modifications in session
+  - [x] Register tool in server
+  - [x] Write integration tests in `tests/tools/drawText.test.ts`
 - **Dependencies:** Task 1.1, Task 1.2
-- **Notes:**
+- **Notes:** Implemented draw_text MCP tool with Zod schema, error handling, and 8 integration tests covering default/custom options, error cases, session modification, and multi-page support.
 
 ### Task 1.4: Test Fixtures
 - **Status:** ⏳ Pending
@@ -119,6 +119,7 @@
 
 | Date | Task | Change Description |
 |------|------|-------------------|
+| 2026-01-18 | Task 1.3 | Completed draw_text tool: MCP tool to draw text at specific coordinates with font/size options. 8 integration tests covering all scenarios. |
 | 2026-01-18 | Task 1.2 | Completed get_text_with_positions tool: returns text items with x, y, width, height coordinates and page dimensions. 8 integration tests. |
 | 2026-01-17 | Task 1.1 | Completed text overlay foundation: `drawTextOnPage()`, font support, bounds validation, 27 tests |
 | 2026-01-17 | Initial | Created PROGRESS.md for v2 static form support |

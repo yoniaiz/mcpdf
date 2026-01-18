@@ -7,6 +7,7 @@ import { registerPreviewPdfTool } from './previewPdf.js';
 import { registerSavePdfTool } from './savePdf.js';
 import { registerGetPageContentTool } from './getPageContent.js';
 import { registerGetTextWithPositionsTool } from './getTextWithPositions.js';
+import { registerDrawTextTool } from './drawText.js';
 
 export function registerTools(server: McpServer): void {
   registerOpenPdfTool(server);
@@ -17,4 +18,5 @@ export function registerTools(server: McpServer): void {
   registerSavePdfTool(server);
   registerGetPageContentTool(server);
   registerGetTextWithPositionsTool(server);
+  registerDrawTextTool(server);
 }
