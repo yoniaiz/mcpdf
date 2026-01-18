@@ -32,6 +32,8 @@ export interface PdfTestFiles {
   multiPage: string;
   /** PDF with no form fields */
   empty: string;
+  /** Static form with visual patterns but no AcroForm fields */
+  staticForm: string;
 }
 
 /**
@@ -111,6 +113,7 @@ export const test = baseTest.extend<McpdfTestFixtures>({
       simpleForm: path.join(pdfsDir, 'simple-form.pdf'),
       multiPage: path.join(pdfsDir, 'multi-page.pdf'),
       empty: path.join(pdfsDir, 'empty.pdf'),
+      staticForm: path.join(pdfsDir, 'static-form.pdf'),
     });
   },
 });

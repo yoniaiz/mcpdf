@@ -72,7 +72,7 @@ Tests: {count} passing
 Lint: ✅ Passing
 Build: ✅ Passing
 
-Plan: .cursor/plans/{plan_file}
+Plan: .cursor/plans/{phase}_{plan_file}
 ═══════════════════════════════════════════════════════════════
 
 Ready to commit and push to main.
@@ -116,7 +116,7 @@ After all phases complete:
 ✅ Task {task_id} COMPLETE
 ═══════════════════════════════════════════
 Phase: {active_phase}
-Plan: .cursor/plans/{plan_file}
+Plan: .cursor/plans/{phase}_{plan_file}
 Commit: {commit_hash}
 Files changed: {count}
 Tests: {count} passing

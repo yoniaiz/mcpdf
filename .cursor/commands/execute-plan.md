@@ -34,7 +34,7 @@ From PROGRESS.md, identify:
 2. Extract the **Task ID** (e.g., "Task 2.4")
 
 Find the plan file:
-- Look in `.cursor/plans/` for files matching `task_X.Y_*.plan.md`
+- Look in `.cursor/plans/` for files matching `{phase}_task_X.Y_*.plan.md`
 - If multiple plans exist for the same task, use the most recent one
 - If NO plan exists, STOP and report: "No plan found for Task X.Y. Run prepare-plan first."
 
@@ -113,7 +113,7 @@ Create a summary of what was done:
 - ✅ Tests: passed (X tests)
 
 ### Plan followed:
-- Plan file: `.cursor/plans/task_X.Y_name.plan.md`
+- Plan file: `.cursor/plans/{phase}_task_X.Y_name.plan.md`
 - [Note any deviations and why]
 
 ### Files created/modified:
@@ -161,7 +161,7 @@ Example update:
 ```markdown
 ### Task X.Y: Task Name
 - **Status:** ✅ Complete
-- **Plan:** [`.cursor/plans/task_X.Y_name.plan.md`](.cursor/plans/task_X.Y_name.plan.md)
+- **Plan:** [`.cursor/plans/{phase}_task_X.Y_name.plan.md`](.cursor/plans/{phase}_task_X.Y_name.plan.md)
 - **Deliverables:**
   - [x] First deliverable
   - [x] Second deliverable

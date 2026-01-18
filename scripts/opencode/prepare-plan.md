@@ -36,7 +36,7 @@ Extract:
 
 ## Step 4: Check Existing Plans
 
-Look in `.cursor/plans/` for any plans matching `task_{TASK_ID}_*.plan.md`.
+Look in `.cursor/plans/` for any plans matching `{phase}_task_{TASK_ID}_*.plan.md`.
 If found, read them to understand previous work.
 
 ## Step 5: Analyze Current Codebase
@@ -64,12 +64,12 @@ Example for `v2-static-forms`:
 
 **IMPORTANT:** You must create the plan file yourself.
 
-Create a file at `.cursor/plans/task_{TASK_ID}_{task_name_snake_case}_{random_8_chars}.plan.md`
+Create a file at `.cursor/plans/{phase}_task_{TASK_ID}_{task_name_snake_case}_{random_8_chars}.plan.md`
 
 Use this format:
 
 ```markdown
-# Plan: Task {TASK_ID} - {Task Name}
+# Plan: {phase}/Task {TASK_ID} - {Task Name}
 
 ## Context
 - **Active Phase:** {phase}

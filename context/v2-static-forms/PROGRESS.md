@@ -58,8 +58,8 @@
 - **Notes:** Implemented draw_text MCP tool with Zod schema, error handling, and 8 integration tests covering default/custom options, error cases, session modification, and multi-page support.
 
 ### Task 1.4: Test Fixtures
-- **Status:** ⏳ Pending
-- **Plan:** —
+- **Status:** 🔄 In Progress
+- **Plan:** [`.cursor/plans/task_1.4_test_fixtures_bad91260.plan.md`](.cursor/plans/task_1.4_test_fixtures_bad91260.plan.md)
 - **Description:** Create test PDF with static form patterns
 - **Deliverables:**
   - [ ] Update `tests/pdfs/generator.ts` with static form generator

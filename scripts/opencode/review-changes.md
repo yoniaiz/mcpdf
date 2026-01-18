@@ -81,7 +81,7 @@ If any fail:
 
 ## Step 8: Verify Deliverables
 
-1. **Check the plan file** (`.cursor/plans/task_{TASK_ID}_*.plan.md`):
+1. **Check the plan file** (`.cursor/plans/{phase}_task_{TASK_ID}_*.plan.md`):
    - All deliverables should be checked: `[x]`
    - If any are `[ ]`, either complete them or check them off if done
 

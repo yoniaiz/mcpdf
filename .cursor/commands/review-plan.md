@@ -37,7 +37,7 @@ From PROGRESS.md:
 2. Extract the **Task ID** (e.g., "Task 2.4")
 
 Find the plan file:
-- Look in `.cursor/plans/` for files matching `task_X.Y_*.plan.md`
+- Look in `.cursor/plans/` for files matching `{phase}_task_X.Y_*.plan.md`
 - If multiple plans exist, use the most recent one
 - If NO plan exists, STOP: "No plan found for Task X.Y. Run prepare-plan first."
 
@@ -128,7 +128,7 @@ Explore the current codebase to verify:
 
 ## Context
 - **Active Phase:** {phase}
-- **Plan File:** `.cursor/plans/task_X.Y_name.plan.md`
+- **Plan File:** `.cursor/plans/{phase}_task_X.Y_name.plan.md`
 
 ## ✅ Validated Items
 - [List things that look correct]

@@ -23,7 +23,7 @@ Example: If active phase is `v2-static-forms`:
 
 The task to review is specified by TASK_ID (e.g., "3.1").
 
-Find the plan file in `.cursor/plans/` matching `task_{TASK_ID}_*.plan.md`.
+Find the plan file in `.cursor/plans/` matching `{phase}_task_{TASK_ID}_*.plan.md`.
 If no plan exists, output "ERROR: No plan found for Task {TASK_ID}" and stop.
 
 ## Step 4: Read the Plan
@@ -70,7 +70,7 @@ If issues found, update the plan file directly with fixes:
 
 If plan is ready (or after fixing):
 ```
-PLAN_READY: .cursor/plans/task_{TASK_ID}_{name}.plan.md
+PLAN_READY: .cursor/plans/{phase}_task_{TASK_ID}_{name}.plan.md
 PHASE: {active_phase}
 ```
 

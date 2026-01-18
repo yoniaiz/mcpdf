@@ -61,7 +61,7 @@ Use this format:
 - Deliverable 1 completed
 - Deliverable 2 completed
 
-Plan: .cursor/plans/task_X.Y_name.plan.md
+Plan: .cursor/plans/{phase}_task_X.Y_name.plan.md
 ```
 
 **Commit types:**
@@ -115,7 +115,7 @@ feat(overlay): Add text overlay foundation for static forms
 - Added overlay placement on PDF pages
 - Created comprehensive test suite
 
-Plan: .cursor/plans/task_2.1_text_overlay_foundation_a1b2c3d4.plan.md
+Plan: .cursor/plans/v2-static-forms_task_2.1_text_overlay_foundation_a1b2c3d4.plan.md
 ```
 
 ## Rules

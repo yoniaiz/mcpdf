@@ -21,7 +21,7 @@ Example: If active phase is `v2-static-forms`:
 
 The task is specified by TASK_ID (e.g., "3.1").
 
-Find the plan file in `.cursor/plans/` matching `task_{TASK_ID}_*.plan.md`.
+Find the plan file in `.cursor/plans/` matching `{phase}_task_{TASK_ID}_*.plan.md`.
 Read it completely. Understand:
 - The approach and architecture
 - Implementation steps sequence

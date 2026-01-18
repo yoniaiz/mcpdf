@@ -225,42 +225,51 @@ Use this when implementing or modifying MCP tools.
 
 ### 7. Link Cursor Plans to PROGRESS.md Tasks
 
-⚠️ **REQUIRED: Plan names MUST start with the task ID**
+⚠️ **REQUIRED: Plan names MUST include phase AND task ID**
 
 When creating a Cursor Plan, you MUST follow this naming convention:
 
 ```
-Task X.Y: [Task Name] - [Specific Action]
+{phase}/Task X.Y: [Task Name] - [Specific Action]
 ```
 
 **Examples:**
 | ✅ Good | ❌ Bad |
 |---------|--------|
-| `Task 1.2: MCP Server Setup - Initialize server` | `MCP Server Setup` |
-| `Task 2.3: Text Extraction - Add pdfjs-dist` | `Implement text extraction` |
-| `Task 3.4: fill_field Tool - Add elicitation` | `Add elicitation feature` |
+| `v2-static-forms/Task 1.2: MCP Server Setup - Initialize server` | `Task 1.2: MCP Server Setup` |
+| `v2-static-forms/Task 2.3: Text Extraction - Add pdfjs-dist` | `Implement text extraction` |
+| `v1-acroforms/Task 3.4: fill_field Tool - Add elicitation` | `Add elicitation feature` |
+
+**Plan file naming:**
+```
+.cursor/plans/{phase}_task_{task_id}_{task_name_snake_case}_{random_8_chars}.plan.md
+```
+Example: `v2-static-forms_task_2.3_text_extraction_a1b2c3d4.plan.md`
 
 **Why this matters:**
-- Future agents can find plans by searching for the task ID
+- Future agents can find plans by searching for the phase and task ID
 - Creates clear traceability between tasks and implementation
 - Prevents duplicate work across sessions
+- Distinguishes plans from different development phases
 
 **Full requirements:**
-1. **Name plans with task ID prefix** - ALWAYS start with `Task X.Y:`
-2. **Reference task in plan description** - Mention which PROGRESS.md task this implements
-3. **Check plans in new sessions** - Review existing plans to understand completed work
-4. **Document plan outcomes** - Note in PROGRESS.md if a plan was used
+1. **Name plans with phase AND task ID prefix** - ALWAYS start with `{phase}/Task X.Y:`
+2. **Use phase prefix in file names** - Pattern: `{phase}_task_{task_id}_*.plan.md`
+3. **Reference task in plan description** - Mention which PROGRESS.md task this implements
+4. **Check plans in new sessions** - Review existing plans to understand completed work
+5. **Document plan outcomes** - Note in PROGRESS.md if a plan was used
 
 **Example plan:**
 ```
-Plan Title: Task 2.3: Text Extraction - Implement pdfjs-dist integration
-Description: Implements Task 2.3 from PROGRESS.md - adding text extraction using pdfjs-dist
+Plan Title: v2-static-forms/Task 2.3: Text Extraction - Implement pdfjs-dist integration
+Description: Implements Task 2.3 from v2-static-forms PROGRESS.md - adding text extraction using pdfjs-dist
 ```
 
 This creates clear traceability between:
 - PROGRESS.md tasks (what needs to be done)
 - Cursor Plans (how it was done)
 - Code changes (the actual implementation)
+- Development phases (which phase the work belongs to)
 
 ## Context Files
 

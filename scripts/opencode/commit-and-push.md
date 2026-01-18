@@ -63,7 +63,7 @@ feat(scope): Brief description
 - Deliverable 1 completed
 - Deliverable 2 completed
 
-Plan: .cursor/plans/task_X.Y_name.plan.md
+Plan: .cursor/plans/{phase}_task_X.Y_name.plan.md
 ```
 
 Commit types:
@@ -87,7 +87,7 @@ git commit -m "feat(scope): description
 - Deliverable 1
 - Deliverable 2
 
-Plan: .cursor/plans/task_X.Y_name.plan.md"
+Plan: .cursor/plans/{phase}_task_X.Y_name.plan.md"
 ```
 
 ## Step 8: Push to Remote

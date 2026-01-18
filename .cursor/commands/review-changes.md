@@ -165,7 +165,7 @@ pnpm run build && pnpm run inspect
 ## Context
 - **Active Phase:** {phase}
 - **Task:** Task X.Y - [Name]
-- **Plan:** `.cursor/plans/task_X.Y_name.plan.md`
+- **Plan:** `.cursor/plans/{phase}_task_X.Y_name.plan.md`
 - **Files changed:** X files (+Y/-Z lines)
 
 ## Quality Checks

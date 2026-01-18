@@ -140,6 +140,32 @@ async function generateEmpty(): Promise<Uint8Array> {
 }
 
 /**
+ * Generate a static form PDF with visual blank patterns but no AcroForm fields.
+ * Used to test AI-driven static form filling workflow.
+ */
+async function generateStaticForm(): Promise<Uint8Array> {
+  const pdfDoc = await PDFDocument.create();
+  const page = pdfDoc.addPage([612, 792]); // Letter size
+
+  // Title
+  page.drawText('Static Form Test PDF', { x: 50, y: 750, size: 18 });
+  page.drawText('This PDF has visual form patterns but no AcroForm fields.', { x: 50, y: 720, size: 10 });
+
+  // Form patterns (label + underscores on same line)
+  // Coordinates match PRD examples for consistency
+  page.drawText('Name:', { x: 50, y: 700, size: 12 });
+  page.drawText('_______________', { x: 95, y: 700, size: 12 });
+
+  page.drawText('Email:', { x: 50, y: 670, size: 12 });
+  page.drawText('_______________', { x: 100, y: 670, size: 12 });
+
+  page.drawText('Date:', { x: 50, y: 640, size: 12 });
+  page.drawText('___/___/______', { x: 90, y: 640, size: 12 });
+
+  return pdfDoc.save();
+}
+
+/**
  * Main generator function
  */
 async function main(): Promise<void> {
@@ -167,7 +193,13 @@ async function main(): Promise<void> {
   writeFileSync(join(outputDir, 'empty.pdf'), emptyBytes);
   console.log('    ✓ empty.pdf (no fields)');
 
-  console.log('\nDone! Generated 3 PDF test fixtures.');
+  // Generate static form (no AcroForm fields)
+  console.log('  Generating static-form.pdf...');
+  const staticFormBytes = await generateStaticForm();
+  writeFileSync(join(outputDir, 'static-form.pdf'), staticFormBytes);
+  console.log('    ✓ static-form.pdf (visual patterns, no fields)');
+
+  console.log('\nDone! Generated 4 PDF test fixtures.');
 }
 
 main().catch((error) => {
