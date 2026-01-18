@@ -8,10 +8,10 @@
 
 | Phase | Status | Progress |
 |-------|--------|----------|
-| Phase 1: Core Tools | 🔄 In Progress | 3/4 |
+| Phase 1: Core Tools | ✅ Complete | 4/4 |
 | Phase 2: Integration & Polish | ⏳ Pending | 0/3 |
 
-**Total Progress:** 3/7 tasks completed
+**Total Progress:** 4/7 tasks completed
 
 ---
 
@@ -58,19 +58,19 @@
 - **Notes:** Implemented draw_text MCP tool with Zod schema, error handling, and 8 integration tests covering default/custom options, error cases, session modification, and multi-page support.
 
 ### Task 1.4: Test Fixtures
-- **Status:** 🔄 In Progress
+- **Status:** ✅ Complete
 - **Plan:** [`.cursor/plans/task_1.4_test_fixtures_bad91260.plan.md`](.cursor/plans/task_1.4_test_fixtures_bad91260.plan.md)
 - **Description:** Create test PDF with static form patterns
 - **Deliverables:**
-  - [ ] Update `tests/pdfs/generator.ts` with static form generator
-  - [ ] Generate `tests/pdfs/static-form.pdf` with:
+  - [x] Update `tests/pdfs/generator.ts` with static form generator
+  - [x] Generate `tests/pdfs/static-form.pdf` with:
     - "Name: _______________" pattern
     - "Email: _______________" pattern
     - "Date: ___/___/______" pattern
     - No AcroForm fields
-  - [ ] Add to `tests/fixtures/index.ts`
+  - [x] Add to `tests/fixtures/index.ts`
 - **Dependencies:** None
-- **Notes:**
+- **Notes:** Added `generateStaticForm()` to generator.ts, created static-form.pdf (612x792 Letter, verified 0 AcroForm fields), added `staticForm` to `PdfTestFiles` interface and fixture.
 
 ---
 
@@ -119,6 +119,7 @@
 
 | Date | Task | Change Description |
 |------|------|-------------------|
+| 2026-01-18 | Task 1.4 | Completed test fixtures: Added `generateStaticForm()` and `static-form.pdf` with visual form patterns (Name/Email/Date) but no AcroForm fields. Phase 1 complete. |
 | 2026-01-18 | Task 1.3 | Completed draw_text tool: MCP tool to draw text at specific coordinates with font/size options. 8 integration tests covering all scenarios. |
 | 2026-01-18 | Task 1.2 | Completed get_text_with_positions tool: returns text items with x, y, width, height coordinates and page dimensions. 8 integration tests. |
 | 2026-01-17 | Task 1.1 | Completed text overlay foundation: `drawTextOnPage()`, font support, bounds validation, 27 tests |
