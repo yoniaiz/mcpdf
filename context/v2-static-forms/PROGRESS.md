@@ -1,6 +1,6 @@
 # mcpdf v2 - Static Form Support Progress
 
-> **Last Updated:** 2026-01-17
+> **Last Updated:** 2026-01-18
 > 
 > This file tracks development tasks for mcpdf v2 (static form support).
 
@@ -8,10 +8,10 @@
 
 | Phase | Status | Progress |
 |-------|--------|----------|
-| Phase 1: Core Tools | 🔄 In Progress | 1/4 |
+| Phase 1: Core Tools | 🔄 In Progress | 2/4 |
 | Phase 2: Integration & Polish | ⏳ Pending | 0/3 |
 
-**Total Progress:** 1/7 tasks completed
+**Total Progress:** 2/7 tasks completed
 
 ---
 
@@ -31,17 +31,17 @@
 - **Notes:** Added `StandardFontName`, `TextOverlayOptions`, `TextOverlayResult` types. Added `PdfOutOfBoundsError` for coordinate validation. 27 unit tests added.
 
 ### Task 1.2: get_text_with_positions Tool
-- **Status:** ⏳ Pending
-- **Plan:** —
+- **Status:** ✅ Complete
+- **Plan:** [`.cursor/plans/get_text_with_positions_tool_0a4ac450.plan.md`](.cursor/plans/get_text_with_positions_tool_0a4ac450.plan.md)
 - **Description:** Create MCP tool that exposes text positions for AI analysis
 - **Deliverables:**
-  - [ ] Create `src/tools/getTextWithPositions.ts`
-  - [ ] Return text items with x, y, width, height
-  - [ ] Include page dimensions in response
-  - [ ] Register tool in server
-  - [ ] Write integration tests in `tests/tools/getTextWithPositions.test.ts`
+  - [x] Create `src/tools/getTextWithPositions.ts`
+  - [x] Return text items with x, y, width, height
+  - [x] Include page dimensions in response
+  - [x] Register tool in server
+  - [x] Write integration tests in `tests/tools/getTextWithPositions.test.ts`
 - **Dependencies:** Task 1.1
-- **Notes:**
+- **Notes:** Implemented tool returning JSON with page, width, height, text, and items array. Each item has text, x, y, width, height. 8 integration tests added covering extraction, dimensions, multi-page, and error cases.
 
 ### Task 1.3: draw_text Tool
 - **Status:** ⏳ Pending
@@ -119,6 +119,7 @@
 
 | Date | Task | Change Description |
 |------|------|-------------------|
+| 2026-01-18 | Task 1.2 | Completed get_text_with_positions tool: returns text items with x, y, width, height coordinates and page dimensions. 8 integration tests. |
 | 2026-01-17 | Task 1.1 | Completed text overlay foundation: `drawTextOnPage()`, font support, bounds validation, 27 tests |
 | 2026-01-17 | Initial | Created PROGRESS.md for v2 static form support |
 
